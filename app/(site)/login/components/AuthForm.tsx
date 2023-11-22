@@ -48,6 +48,7 @@ const AuthForm = () => {
     setIsLoading(true);
 
     if (variant == "REGISTER") {
+      console.log(data);
       axios
         .post("/api/register", data)
         .then(() => signIn("credentials", data))
