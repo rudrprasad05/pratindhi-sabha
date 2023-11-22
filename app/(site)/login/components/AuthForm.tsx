@@ -95,7 +95,7 @@ const AuthForm = () => {
 
   return (
     <div className="w-screen h-screen  shadow-md grid items-center">
-      <div className="px-8 py-5 rounded-lg bg-slate-700 w-2/3 mx-auto my-auto">
+      <div className="px-8 py-5 rounded-lg bg-slate-100 w-1/3 mx-auto my-auto">
         {variant == "LOGIN" && (
           <div className="text-xl text-center">Sign into Your Account</div>
         )}
@@ -141,7 +141,7 @@ const AuthForm = () => {
               <div className="w-full border-t border-gray-500" />
             </div>
             <div className="relative flex justify-center">
-              <span className="px-2 text-sm bg-secondary-bg">
+              <span className="px-3 text-sm bg-slate-100">
                 Or Continue With
               </span>
             </div>
