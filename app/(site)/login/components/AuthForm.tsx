@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import AuthSocialButton from "./AuthSocialButton";
-import { BsGithub, BsGoogle } from "react-icons/bs";
+import { BsFacebook, BsGithub, BsGoogle } from "react-icons/bs";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { signIn, useSession } from "next-auth/react";
@@ -23,7 +23,7 @@ const AuthForm = () => {
   useEffect(() => {
     if (session?.status == "authenticated") {
       console.log("authenticated");
-      router.push("/admin");
+      router.push("/");
     }
   }, [session?.status, router]);
 
@@ -65,6 +65,7 @@ const AuthForm = () => {
         .then((callback) => {
           if (callback?.error) {
             toast.error("Invalid Credentials");
+            console.log(callback);
           } else if (callback?.ok) {
             toast.success("Signed In Successfully");
             router.push("/admin");
@@ -96,7 +97,7 @@ const AuthForm = () => {
 
   return (
     <div className="w-screen h-screen  shadow-md grid items-center">
-      <div className="px-8 py-5 rounded-lg bg-slate-100 w-1/3 mx-auto my-auto">
+      <div className="px-8 py-5 rounded-lg bg-secondary-bg w-1/3 mx-auto my-auto">
         {variant == "LOGIN" && (
           <div className="text-xl text-center">Sign into Your Account</div>
         )}
@@ -151,12 +152,16 @@ const AuthForm = () => {
 
         <div className="mt-6 flex gap-6">
           <AuthSocialButton
-            onClick={() => socialAction("github")}
-            icon={BsGithub}
+            onClick={() => socialAction("facebook")}
+            icon={BsFacebook}
           />
           <AuthSocialButton
             onClick={() => socialAction("google")}
             icon={BsGoogle}
+          />
+          <AuthSocialButton
+            onClick={() => socialAction("github")}
+            icon={BsGithub}
           />
         </div>
 
