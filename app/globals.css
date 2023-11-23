@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html, body,:root{ 
+    height: 100%;
+}
+
 @layer base {
   :root {
     /*  === shad ===  */
@@ -76,6 +80,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-orange-50 text-foreground;
   }
 }
+

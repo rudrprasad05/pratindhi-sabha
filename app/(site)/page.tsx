@@ -1,12 +1,15 @@
 import Link from "next/link";
 
-export default function Home() {
-  return (
-    <>
-      <div>Home</div>
+import { SignOutContext } from "../../actions/signOut";
+import { useSession } from "next-auth/react";
 
-      <Link href={"/login"}>Login</Link>
-      {/* <Button onClick={() => SignOutContext()}>Log Out</Button> */}
-    </>
-  );
+export default function Home() {
+    const { data: session } = useSession();
+    console.log(session?.user);
+    return (
+        <div>
+            {/* Hero */}
+        </div>
+    );
+
 }
