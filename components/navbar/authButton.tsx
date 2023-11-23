@@ -10,8 +10,6 @@ import AvatarComponent from "../global/AvatarComponent";
 export default function AuthButton() {
   const { data: session } = useSession();
 
-  console.log(session?.user);
-
   return (
     <>
       {!session?.user ? (

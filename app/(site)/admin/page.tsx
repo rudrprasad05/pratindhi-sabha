@@ -1,5 +1,3 @@
-"use client";
-
 import ProtectRoutes from "@/actions/protectRoutes";
 import Error403 from "@/components/global/Error403";
 import { useSession } from "next-auth/react";
@@ -8,14 +6,8 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-const page = () => {
-  const auth = ProtectRoutes();
-
-  useEffect(() => {
-    if (!auth) {
-      toast.error("You are not Authenticated");
-    }
-  }, [auth]);
+const page = async () => {
+  const auth = await ProtectRoutes();
 
   if (!auth) return <Error403 />;
 

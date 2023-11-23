@@ -4,10 +4,14 @@ import { cn } from "@/lib/utils";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { User } from "@prisma/client";
 
-export const NavLinks = () => {
+interface props {
+  user?: User;
+}
+
+export const NavLinks: React.FC<props> = ({ user }) => {
   const pathname = usePathname();
-  const session = useSession();
 
   // Placeholder links
   const routes = [
@@ -47,9 +51,8 @@ export const NavLinks = () => {
           {route.labal}
         </Link>
       ))}
-      {session.data?.user?.email == "admin@admin.com" && (
-        <Link href={"/admin"}>Admin</Link>
-      )}
+
+      {user?.role == "admin" && <Link href={"/admin"}>Admin</Link>}
     </nav>
   );
 };

@@ -1,12 +1,9 @@
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import { getUser } from "./getUser";
 
-export default function ProtectRoutes() {
-  const session = useSession();
+export default async function ProtectRoutes() {
+  const user = await getUser();
 
-  if (session.data?.user?.email != "admin@admin.com") {
+  if (user?.role != "admin") {
     return false;
   }
   return true;

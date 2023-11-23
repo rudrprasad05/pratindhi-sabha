@@ -18,7 +18,6 @@ interface props {
 }
 
 const EditProfileSheet: React.FC<props> = ({ children, user }) => {
-  console.log(user, "sleeve");
   return (
     <Sheet>
       <SheetTrigger>{children}</SheetTrigger>
