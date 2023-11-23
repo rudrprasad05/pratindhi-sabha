@@ -47,6 +47,7 @@ const AuthForm = () => {
     setIsLoading(true);
 
     if (variant == "REGISTER") {
+      data.role = "user";
       axios
         .post("/api/register", data)
         .then(() => signIn("credentials", data))
@@ -95,7 +96,7 @@ const AuthForm = () => {
   return (
     <div className="w-screen h-screen relative  shadow-md grid items-center">
       {variant == "LOGIN" || variant == "REGISTER" ? (
-        <div className="px-8 py-5 rounded-lg bg-secondary-bg w-1/3 mx-auto my-auto">
+        <div className="px-8 py-5 rounded-lg bg-secondary-bg lg:w-1/3 w-4/5 mx-auto my-auto">
           {variant == "LOGIN" && (
             <div className="text-xl text-center">Sign into Your Account</div>
           )}
