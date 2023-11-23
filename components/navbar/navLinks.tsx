@@ -1,11 +1,13 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 export const NavLinks = () => {
   const pathname = usePathname();
+  const session = useSession();
 
   // Placeholder links
   const routes = [
@@ -45,6 +47,9 @@ export const NavLinks = () => {
           {route.labal}
         </Link>
       ))}
+      {session.data?.user?.email == "admin@admin.com" && (
+        <Link href={"/admin"}>Admin</Link>
+      )}
     </nav>
   );
 };
