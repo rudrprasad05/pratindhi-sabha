@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import Button from "@/components/global/Button";
 import Input from "@/components/global/Input";
 
-type Variant = "LOGIN" | "REGISTER";
+type Variant = "LOGIN" | "REGISTER" | "ADMIN";
 
 const AuthForm = () => {
   const session = useSession();
@@ -48,7 +48,6 @@ const AuthForm = () => {
     setIsLoading(true);
 
     if (variant == "REGISTER") {
-      console.log(data);
       axios
         .post("/api/register", data)
         .then(() => signIn("credentials", data))
@@ -65,7 +64,6 @@ const AuthForm = () => {
         .then((callback) => {
           if (callback?.error) {
             toast.error("Invalid Credentials");
-            console.log(callback);
           } else if (callback?.ok) {
             toast.success("Signed In Successfully");
             router.push("/admin");
@@ -95,89 +93,136 @@ const AuthForm = () => {
       });
   };
 
+  const admin = () => {
+    if (variant === "LOGIN" || variant === "REGISTER") setVariant("ADMIN");
+    else setVariant("LOGIN");
+  };
+
   return (
-    <div className="w-screen h-screen  shadow-md grid items-center">
-      <div className="px-8 py-5 rounded-lg bg-secondary-bg w-1/3 mx-auto my-auto">
-        {variant == "LOGIN" && (
-          <div className="text-xl text-center">Sign into Your Account</div>
-        )}
-        {variant == "REGISTER" && (
-          <div className="text-xl text-center">Create New Account</div>
-        )}
-        <form action="" onSubmit={handleSubmit(onSubmit)}>
-          {variant === "REGISTER" && (
+    <div className="w-screen h-screen relative  shadow-md grid items-center">
+      {variant == "LOGIN" || variant == "REGISTER" ? (
+        <div className="px-8 py-5 rounded-lg bg-secondary-bg w-1/3 mx-auto my-auto">
+          {variant == "LOGIN" && (
+            <div className="text-xl text-center">Sign into Your Account</div>
+          )}
+          {variant == "REGISTER" && (
+            <div className="text-xl text-center">Create New Account</div>
+          )}
+          <form action="" onSubmit={handleSubmit(onSubmit)}>
+            {variant === "REGISTER" && (
+              <Input
+                label="Name"
+                register={register}
+                id="name"
+                required
+                errors={errors}
+                disabled={isLoading}
+              />
+            )}
+
             <Input
-              label="Name"
+              label="Email Adress"
               register={register}
-              id="name"
+              id="email"
+              required
               errors={errors}
               disabled={isLoading}
             />
-          )}
-          <Input
-            label="Email Adress"
-            register={register}
-            id="email"
-            errors={errors}
-            disabled={isLoading}
-          />
-          <Input
-            label="Password"
-            register={register}
-            type={"password"}
-            id="password"
-            errors={errors}
-            disabled={isLoading}
-          />
+            <Input
+              label="Password"
+              register={register}
+              type={"password"}
+              id="password"
+              required
+              errors={errors}
+              disabled={isLoading}
+            />
 
-          <div>
-            <Button disabled={isLoading} fullWidth type="submit">
-              {variant === "LOGIN" ? "Sign-In" : "Register"}
-            </Button>
-          </div>
-        </form>
-
-        <div className="mt-6">
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-500" />
+            <div>
+              <Button disabled={isLoading} fullWidth type="submit">
+                {variant === "LOGIN" ? "Sign-In" : "Register"}
+              </Button>
             </div>
-            <div className="relative flex justify-center">
-              <span className="px-3 text-sm bg-slate-100">
-                Or Continue With
-              </span>
+          </form>
+
+          <div className="mt-6">
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-500" />
+              </div>
+              <div className="relative flex justify-center">
+                <span className="px-3 text-sm bg-slate-100">
+                  Or Continue With
+                </span>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="mt-6 flex gap-6">
-          <AuthSocialButton
-            onClick={() => socialAction("facebook")}
-            icon={BsFacebook}
-          />
-          <AuthSocialButton
-            onClick={() => socialAction("google")}
-            icon={BsGoogle}
-          />
-          <AuthSocialButton
-            onClick={() => socialAction("github")}
-            icon={BsGithub}
-          />
-        </div>
+          <div className="mt-6 flex gap-6">
+            <AuthSocialButton
+              onClick={() => socialAction("facebook")}
+              icon={BsFacebook}
+            />
+            <AuthSocialButton
+              onClick={() => socialAction("google")}
+              icon={BsGoogle}
+            />
+            <AuthSocialButton
+              onClick={() => socialAction("github")}
+              icon={BsGithub}
+            />
+          </div>
 
-        <div className="flex gap-2 justify-center text-sm mt-6 px-2">
-          <div>
-            {variant === "LOGIN"
-              ? "New to Messenger?"
-              : "Already have an Account?"}
-          </div>
-          <div
-            onClick={toggleVariant}
-            className={"text-sky-500 underline cursor-pointer"}
-          >
-            {variant === "LOGIN" ? "Create an Account" : "Login"}
+          <div className="flex gap-2 justify-center text-sm mt-6 px-2">
+            <div>
+              {variant === "LOGIN"
+                ? "New to Messenger?"
+                : "Already have an Account?"}
+            </div>
+            <div
+              onClick={toggleVariant}
+              className={"text-sky-500 underline cursor-pointer"}
+            >
+              {variant === "LOGIN" ? "Create an Account" : "Login"}
+            </div>
           </div>
         </div>
+      ) : (
+        <div className="px-8 py-5 rounded-lg bg-secondary-bg w-1/3 mx-auto my-auto">
+          <div className="text-xl text-center">Admin Login</div>
+          <form action="" onSubmit={handleSubmit(onSubmit)}>
+            <Input
+              label="Email Adress"
+              register={register}
+              id="email"
+              required
+              errors={errors}
+              disabled={isLoading}
+            />
+            <Input
+              label="Password"
+              register={register}
+              type={"password"}
+              id="password"
+              required
+              errors={errors}
+              disabled={isLoading}
+            />
+
+            <div>
+              <Button disabled={isLoading} fullWidth type="submit">
+                Login
+              </Button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      <div className="absolute bottom-10 right-10">
+        <Button secondary onClick={admin}>
+          {variant === "ADMIN" && "Not an Admin?"}
+          {variant != "ADMIN" && "Admin?"}
+        </Button>
       </div>
     </div>
   );
