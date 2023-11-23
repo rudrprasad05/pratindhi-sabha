@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import Button from "@/components/global/Button";
 import Input from "@/components/global/Input";
 
-type Variant = "LOGIN" | "REGISTER" | "ADMIN";
+type Variant = "LOGIN" | "REGISTER";
 
 const AuthForm = () => {
   const session = useSession();
@@ -22,7 +22,6 @@ const AuthForm = () => {
 
   useEffect(() => {
     if (session?.status == "authenticated") {
-      console.log("authenticated");
       router.push("/");
     }
   }, [session?.status, router]);
@@ -91,11 +90,6 @@ const AuthForm = () => {
       .finally(() => {
         setIsLoading(false);
       });
-  };
-
-  const admin = () => {
-    if (variant === "LOGIN" || variant === "REGISTER") setVariant("ADMIN");
-    else setVariant("LOGIN");
   };
 
   return (
@@ -217,13 +211,6 @@ const AuthForm = () => {
           </form>
         </div>
       )}
-
-      <div className="absolute bottom-10 right-10">
-        <Button secondary onClick={admin}>
-          {variant === "ADMIN" && "Not an Admin?"}
-          {variant != "ADMIN" && "Admin?"}
-        </Button>
-      </div>
     </div>
   );
 };
