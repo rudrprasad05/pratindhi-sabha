@@ -1,7 +1,5 @@
-"use client";
-
-import Button from "@/components/global/Button";
 import Link from "next/link";
+
 import { SignOutContext } from "../../actions/signOut";
 import { useSession } from "next-auth/react";
 
@@ -13,4 +11,5 @@ export default function Home() {
             {/* Hero */}
         </div>
     );
+
 }
