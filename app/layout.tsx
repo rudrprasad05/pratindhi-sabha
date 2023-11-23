@@ -8,26 +8,23 @@ import { NavBar } from "@/components/navbar/navBar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: "Pratinidhi Sabha",
-    description: "Developed & Powered by Procyon",
+  title: "Pratinidhi Sabha",
+  description: "Developed & Powered by Procyon",
 };
 
 export default function RootLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-    return (
-        <html lang="en">
-            <body className={`${inter.className} text-text-main`}>
-                <AuthContext>
-                    <Toaster />
-                    <main className="h-full">
-                        <NavBar />
-                        {children}
-                    </main>
-                </AuthContext>
-            </body>
-        </html>
-    );
+  return (
+    <html lang="en">
+      <body className={`${inter.className} text-text-main`}>
+        <AuthContext>
+          <Toaster />
+          <main className="h-full">{children}</main>
+        </AuthContext>
+      </body>
+    </html>
+  );
 }

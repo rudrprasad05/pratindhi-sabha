@@ -43,7 +43,7 @@ const Button: React.FC<ButtonProps> = ({
         secondary ? "text-gray-100 bg-slate-600" : "text-white",
         danger && "bg-rose-500 hover:bg-rose-600",
 
-        !secondary && !danger && "bg-blue-500 hover:bg-blue-600"
+        !secondary && !danger && "bg-orange-500 hover:bg-orange-600 transition"
       )}
     >
       {children}

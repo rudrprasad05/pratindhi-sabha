@@ -6,23 +6,29 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { User } from "@prisma/client";
 
 import React from "react";
+import Button from "./Button";
+import { SignOutContext } from "@/actions/signOut";
 
 interface props {
   children?: React.ReactNode;
+  user?: any;
 }
 
-const EditProfileSheet: React.FC<props> = ({ children }) => {
+const EditProfileSheet: React.FC<props> = ({ children, user }) => {
+  console.log(user, "sleeve");
   return (
     <Sheet>
       <SheetTrigger>{children}</SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Are you sure absolutely sure?</SheetTitle>
+          <SheetTitle>
+            Welcome back {user && user.name.split(" ")[0]}
+          </SheetTitle>
           <SheetDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
+            <Button onClick={() => SignOutContext()}>SignOut</Button>
           </SheetDescription>
         </SheetHeader>
       </SheetContent>

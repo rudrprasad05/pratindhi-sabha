@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 
 import Button from "@/components/global/Button";
 import Input from "@/components/global/Input";
+import SpiniJoji from "@/components/global/Spinner";
 
 type Variant = "LOGIN" | "REGISTER";
 
@@ -83,10 +84,9 @@ const AuthForm = () => {
         if (callback?.error) {
           toast.error("Invalid Credentials");
         }
-        if (callback?.ok) {
-          console.log("logged in");
-          toast.success("Login Successful");
-        }
+
+        console.log("logged in");
+        toast.success("Login Successful");
       })
       .finally(() => {
         setIsLoading(false);
@@ -94,9 +94,10 @@ const AuthForm = () => {
   };
 
   return (
-    <div className="w-screen h-screen relative  shadow-md grid items-center">
+    <div className="w-screen h-[90vh] relative grid items-center">
+      {isLoading && <SpiniJoji />}
       {variant == "LOGIN" || variant == "REGISTER" ? (
-        <div className="px-8 py-5 rounded-lg bg-secondary-bg lg:w-1/3 w-4/5 mx-auto my-auto">
+        <div className="px-8 py-5 rounded-lg bg-orange-100 lg:w-1/3 w-4/5 mx-auto my-auto">
           {variant == "LOGIN" && (
             <div className="text-xl text-center">Sign into Your Account</div>
           )}
@@ -146,7 +147,7 @@ const AuthForm = () => {
                 <div className="w-full border-t border-gray-500" />
               </div>
               <div className="relative flex justify-center">
-                <span className="px-3 text-sm bg-slate-100">
+                <span className="px-3 text-gray-500 text-sm bg-orange-100">
                   Or Continue With
                 </span>
               </div>
@@ -176,7 +177,7 @@ const AuthForm = () => {
             </div>
             <div
               onClick={toggleVariant}
-              className={"text-sky-500 underline cursor-pointer"}
+              className={"text-orange-500 underline cursor-pointer"}
             >
               {variant === "LOGIN" ? "Create an Account" : "Login"}
             </div>
