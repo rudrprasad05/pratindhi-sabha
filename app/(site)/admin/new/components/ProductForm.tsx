@@ -13,6 +13,7 @@ import SpiniJoji from "@/components/global/Spinner";
 import ProtectRoutes from "@/actions/protectRoutes";
 import Error403 from "@/components/global/Error403";
 import { User } from "@prisma/client";
+import TextArea from "@/components/global/TextArea";
 
 interface props {
   user?: User | null;
@@ -32,12 +33,16 @@ const AuthForm: React.FC<props> = ({ user }) => {
     defaultValues: {
       title: "",
       author: user?.name,
-      body: "",
+      tags: "",
       content: "",
     },
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {};
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    data.author = user?.id;
+    console.log(data);
+    axios.post("/api/posts", data);
+  };
 
   return (
     <div className="w-screen h-[90vh] py-10">
@@ -63,12 +68,20 @@ const AuthForm: React.FC<props> = ({ user }) => {
           errors={errors}
         />
         <Input
-          label="Password"
+          label="Tags"
           register={register}
-          type={"password"}
-          id="password"
+          type={"text"}
+          id="tags"
           required
           errors={errors}
+        />
+
+        <TextArea
+          label="Enter brief description"
+          id="content"
+          register={register}
+          errors={errors}
+          required
         />
 
         <div className="flex gap-3">
