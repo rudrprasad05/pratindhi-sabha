@@ -1,31 +1,20 @@
 import { getPosts } from "@/actions/getPosts";
-import ProtectRoutes from "@/actions/protectRoutes";
-import Error403 from "@/components/global/Error403";
-import { useSession } from "next-auth/react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import toast from "react-hot-toast";
-import PostCard from "./post/components/PostCard";
+import { DataTable } from "@/components/global/data-table";
 
-const page = async () => {
-  const auth = await ProtectRoutes();
-  const posts = await getPosts();
+import { columns, User } from "./columns";
 
-  if (!auth) return <Error403 />;
+export default async function Page() {
+  const data = await getPosts();
 
   return (
-    <div className="w-4/5 mx-auto mt-5">
-      {/* TODO style admin Panel */}
+    <section className="py-24">
+      <div className="container">
+        <h1 className="mb-6 text-3xl font-bold">All Users</h1>
+        {data && (
+        <DataTable columns={columns} data={data} />
 
-      <div className="text-3xl text-center">Admin Panel</div>
-      <Link href="/admin/post/new">New</Link>
-      <div>
-        {posts &&
-          posts.map((post, index) => <PostCard key={index} post={post} />)}
+        )}
       </div>
-    </div>
+    </section>
   );
-};
-
-export default page;
+}

@@ -1,10 +1,12 @@
-import Link from "next/link";
+import { getUser } from "@/actions/getUser";
 
-import { SignOutContext } from "../../actions/signOut";
-import { useSession } from "next-auth/react";
+export default async function Home() {
+  const user = await getUser();
 
-export default function Home() {
-  // const { data: session } = useSession();
-  // console.log(session?.user);
-  return <div>{/* Hero */}</div>;
+  return (
+    <div>
+      {user?.email ? "Your are logged in. " : "You are not logged in"} This is
+      the hero page
+    </div>
+  );
 }
