@@ -13,7 +13,7 @@ const page = async () => {
 
   return (
     <div>
-      THIS IS ADMIN <Link href="/admin/new">New</Link>
+      THIS IS ADMIN <Link href="/admin/post/new">New</Link>
     </div>
   );
 };

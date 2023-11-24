@@ -14,12 +14,14 @@ import ProtectRoutes from "@/actions/protectRoutes";
 import Error403 from "@/components/global/Error403";
 import { User } from "@prisma/client";
 import TextArea from "@/components/global/TextArea";
+import { ok } from "assert";
 
 interface props {
   user?: User | null;
 }
 
 const AuthForm: React.FC<props> = ({ user }) => {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   // const auth = ProtectRoutes();
 
@@ -39,13 +41,26 @@ const AuthForm: React.FC<props> = ({ user }) => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    setLoading(true);
     data.author = user?.id;
-    console.log(data);
-    axios.post("/api/posts", data);
+    axios
+      .post("/api/posts", data)
+      .then((res) => {
+        if (res.status == 200) toast.success("Post Created Successfully");
+      })
+      .catch((error) => {
+        toast.error("An Error Occured");
+        console.log("POST CREATION - ProductForm.tsx", error);
+      })
+      .finally(() => {
+        setLoading(false);
+        router.back();
+      });
   };
 
   return (
     <div className="w-screen h-[90vh] py-10">
+      {loading && <SpiniJoji />}
       <div className="text-3xl text-center ">New Product</div>
       <form
         action=""

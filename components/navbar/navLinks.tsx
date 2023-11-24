@@ -3,8 +3,9 @@
 import { cn } from "@/lib/utils";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { User } from "@prisma/client";
+import { useEffect, useState } from "react";
 
 interface props {
   user?: User;
@@ -12,6 +13,11 @@ interface props {
 
 export const NavLinks: React.FC<props> = ({ user }) => {
   const pathname = usePathname();
+  const [domLoaded, setDomLoaded] = useState(false);
+
+  useEffect(() => {
+    setDomLoaded(true);
+  }, [domLoaded]);
 
   // Placeholder links
   const routes = [
@@ -38,21 +44,26 @@ export const NavLinks: React.FC<props> = ({ user }) => {
   ];
 
   return (
-    <nav className="flex items-center justify-center gap-10">
-      {routes.map((route, index) => (
-        <Link
-          key={index}
-          href={route.value}
-          className={cn(
-            "opacity-50 hover:opacity-100 transition",
-            route.active && "opacity-100"
-          )}
-        >
-          {route.labal}
-        </Link>
-      ))}
+    <>
+      {" "}
+      {domLoaded && (
+        <nav className="flex items-center justify-center gap-10">
+          {routes.map((route, index) => (
+            <Link
+              key={index}
+              href={route.value}
+              className={cn(
+                "opacity-50 hover:opacity-100 transition",
+                route.active && "opacity-100"
+              )}
+            >
+              {route.labal}
+            </Link>
+          ))}
 
-      {user?.role == "admin" && <Link href={"/admin"}>Admin</Link>}
-    </nav>
+          {user?.role == "admin" && <Link href={"/admin"}>Admin</Link>}
+        </nav>
+      )}
+    </>
   );
 };
