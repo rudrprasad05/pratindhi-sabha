@@ -11,6 +11,7 @@ import { User } from "@prisma/client";
 import React from "react";
 import Button from "./Button";
 import { SignOutContext } from "@/actions/signOut";
+import SignoutPopup from "./SignoutPopup";
 
 interface props {
   children?: React.ReactNode;
@@ -27,7 +28,7 @@ const EditProfileSheet: React.FC<props> = ({ children, user }) => {
             Welcome back {user && user.name.split(" ")[0]}
           </SheetTitle>
           <SheetDescription>
-            <Button onClick={() => SignOutContext()}>SignOut</Button>
+            <SignoutPopup name="SignOut" onClick={() => SignOutContext()} />
           </SheetDescription>
         </SheetHeader>
       </SheetContent>

@@ -1,15 +1,17 @@
 import { NextResponse } from "next/server";
 import prisma from "@/app/libs/prismadb";
+import { FullPostType } from "@/types";
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    const { title, author, tags, content } = body;
+    const body: FullPostType = await request.json();
+    const { title, authorID, tags, content, authorName } = body;
 
     const post = await prisma.posts.create({
       data: {
         title,
-        author,
+        authorID,
+        authorName,
         tags,
         content,
       },

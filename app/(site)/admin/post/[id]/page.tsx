@@ -1,56 +1,74 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import axios from "axios";
-import toast from "react-hot-toast";
-import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-
 import Button from "@/components/global/Button";
 import Input from "@/components/global/Input";
 import SpiniJoji from "@/components/global/Spinner";
-import ProtectRoutes from "@/actions/protectRoutes";
-import Error403 from "@/components/global/Error403";
-import { User } from "@prisma/client";
 import TextArea from "@/components/global/TextArea";
-import { ok } from "assert";
+import { FullPostType } from "@/types";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
-interface props {
-  user?: User | null;
-}
-
-const AuthForm: React.FC<props> = ({ user }) => {
+const page = ({ params }: { params: { id: string } }) => {
+  const id = params.id;
+  const [post, setPost] = useState<FullPostType>();
+  const [domLoaded, setDomLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  // const auth = ProtectRoutes();
-
-  // if (!auth) return <Error403 />;
 
   const {
     register,
+    setValue,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<FieldValues>({
-    defaultValues: {
-      title: "",
-      authorName: user?.name,
-      tags: "",
-      content: "",
+    defaultValues: async () => {
+      const res = await axios.get<FullPostType>(`/api/posts/${id}`, {
+        params,
+      });
+      const data = res.data;
+      setPost(data);
+      setDomLoaded(true);
+
+      return {
+        title: data.title || "",
+        authorID: data.authorID || "",
+        tags: data.tags || "",
+        content: data.content || "",
+        authorName: data.authorName || "",
+      };
     },
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setLoading(true);
-    data.authorID = user?.id;
     axios
-      .post("/api/posts", data)
+      .patch(`/api/posts/${id}`, data)
       .then((res) => {
-        if (res.status == 200) toast.success("Post Created Successfully");
+        if (res.status == 200) toast.success("Post Edited Successfully");
       })
       .catch((error) => {
         toast.error("An Error Occured");
-        console.log("POST CREATION - ProductForm.tsx", error);
+        console.log("POST Edit - [id] page.tsx", error);
+      })
+      .finally(() => {
+        setLoading(false);
+        router.back();
+      });
+  };
+
+  const handleDelete = () => {
+    axios
+      .delete<FullPostType>(`/api/posts/${id}`)
+      .then((res) => {
+        if (res.status == 200) toast.success("Product Deleted");
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Something went wrong");
       })
       .finally(() => {
         setLoading(false);
@@ -110,10 +128,13 @@ const AuthForm: React.FC<props> = ({ user }) => {
           >
             Cancel
           </Button>
+          <Button danger onClick={() => handleDelete()} type="button">
+            Delete
+          </Button>
         </div>
       </form>
     </div>
   );
 };
 
-export default AuthForm;
+export default page;

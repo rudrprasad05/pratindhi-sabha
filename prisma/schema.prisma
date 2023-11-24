@@ -47,7 +47,8 @@ model Account {
 
 model Posts{
     id                String  @id @default(auto()) @map("_id") @db.ObjectId
-    author            String  @db.ObjectId
+    authorID          String  @db.ObjectId
+    authorName        String?
     tags              String?
     content           String?
     title             String?
