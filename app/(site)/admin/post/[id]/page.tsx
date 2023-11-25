@@ -11,7 +11,7 @@ import React, { useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
-const page = ({ params }: { params: { id: string } }) => {
+const Page = ({ params }: { params: { id: string } }) => {
   const id = params.id;
   const [post, setPost] = useState<FullPostType>();
   const [domLoaded, setDomLoaded] = useState(false);
@@ -137,4 +137,4 @@ const page = ({ params }: { params: { id: string } }) => {
   );
 };
 
-export default page;
+export default Page;
