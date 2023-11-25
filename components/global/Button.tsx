@@ -12,6 +12,7 @@ interface ButtonProps {
   danger?: boolean;
   disabled?: boolean;
   sticky?: boolean;
+  loading?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -23,6 +24,7 @@ const Button: React.FC<ButtonProps> = ({
   danger,
   disabled,
   sticky,
+  loading,
 }) => {
   return (
     <button
@@ -38,7 +40,8 @@ const Button: React.FC<ButtonProps> = ({
             py-1
             
         `,
-        disabled && "opacity-50 cursor-wait",
+        disabled && "opacity-50 cursor-not-allowed",
+        loading && "opacity-50 cursor-wait",
         fullWidth && "w-full",
         secondary ? "text-gray-100 bg-slate-600" : "text-white",
         danger && "bg-rose-500 hover:bg-rose-600",

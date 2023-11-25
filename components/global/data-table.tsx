@@ -81,10 +81,6 @@ export function DataTable<TData, TValue>({
           />
         </div>
 
-        <Link className="" href={"/admin/post/new"}>
-          New
-        </Link>
-
         {/* Column visibility */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
