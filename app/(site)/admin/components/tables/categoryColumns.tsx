@@ -24,7 +24,7 @@ export type User = {
   lastSeen: string;
 };
 
-export const columns: ColumnDef<FullPostType>[] = [
+export const categoryColumns: ColumnDef<FullPostType>[] = [
   {
     accessorKey: "title",
     header: ({ column }) => {

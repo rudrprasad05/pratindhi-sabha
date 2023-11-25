@@ -61,12 +61,13 @@ const AuthForm: React.FC<props> = ({ user }) => {
   return (
     <div className="w-screen h-[90vh] py-10">
       {loading && <SpiniJoji />}
-      <div className="text-3xl text-center ">New Product</div>
+
       <form
         action=""
         onSubmit={handleSubmit(onSubmit)}
         className="w-3/5 mx-auto mt-0"
       >
+        <div className="text-3xl ">New Product</div>
         <Input
           label="Title"
           register={register}

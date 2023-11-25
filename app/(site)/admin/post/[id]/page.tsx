@@ -1,6 +1,5 @@
 "use client";
 
-import Button from "@/components/global/Button";
 import Input from "@/components/global/Input";
 import SpiniJoji from "@/components/global/Spinner";
 import TextArea from "@/components/global/TextArea";
@@ -11,6 +10,7 @@ import React, { useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import DeleteModal from "../components/DeletePostModal";
+import { Button } from "@/components/ui/button";
 
 const Page = ({ params }: { params: { id: string } }) => {
   const id = params.id;
@@ -80,7 +80,14 @@ const Page = ({ params }: { params: { id: string } }) => {
   return (
     <div className="w-screen h-[90vh] py-10">
       {loading && <SpiniJoji />}
-      <div className="text-3xl text-center ">New Product</div>
+      <div className=" flex justify-between w-3/5 mx-auto my-10">
+        <div className="text-3xl text-center">Edit Post</div>
+        <DeleteModal
+          description="All references will be removed from our servers and backups"
+          name="Delete"
+          onClick={() => handleDelete()}
+        />
+      </div>
       <form
         action=""
         onSubmit={handleSubmit(onSubmit)}
@@ -119,21 +126,18 @@ const Page = ({ params }: { params: { id: string } }) => {
         />
 
         <div className="flex gap-3">
-          <Button type="submit">Submit</Button>
+          <Button className="bg-green-400" variant={"outline"} type="submit">
+            Submit
+          </Button>
           <Button
             type="button"
-            secondary
+            variant={"outline"}
             onClick={() => {
               router.back();
             }}
           >
             Cancel
           </Button>
-          <DeleteModal
-            description="All references will be removed from our servers and backups"
-            name="Delete"
-            onClick={() => handleDelete()}
-          />
         </div>
       </form>
     </div>

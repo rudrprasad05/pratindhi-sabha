@@ -10,9 +10,10 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import AuthForm from "../post/new/components/ProductForm";
+import AuthForm from "../../post/new/components/ProductForm";
 import EditProfileForm from "./EditProfileForm";
 import { User } from "@prisma/client";
+import { FullUserType } from "@/types";
 
 interface props {
   name?: string;
