@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import DeleteModal from "../components/DeletePostModal";
 
 const Page = ({ params }: { params: { id: string } }) => {
   const id = params.id;
@@ -128,9 +129,11 @@ const Page = ({ params }: { params: { id: string } }) => {
           >
             Cancel
           </Button>
-          <Button danger onClick={() => handleDelete()} type="button">
-            Delete
-          </Button>
+          <DeleteModal
+            description="All references will be removed from our servers and backups"
+            name="Delete"
+            onClick={() => handleDelete()}
+          />
         </div>
       </form>
     </div>
