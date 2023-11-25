@@ -29,10 +29,11 @@ export const columns: ColumnDef<FullPostType>[] = [
     header: ({ column }) => {
       return (
         <Button
+          className="px-0"
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Name
+          Title
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -42,6 +43,7 @@ export const columns: ColumnDef<FullPostType>[] = [
     accessorKey: "authorName",
     header: "Author",
   },
+  // TODO why is this cuasing hydration error. client does not match server
   // {
   //   accessorKey: "createdAt",
   //   header: "createdAt",

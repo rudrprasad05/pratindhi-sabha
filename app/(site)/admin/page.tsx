@@ -10,10 +10,7 @@ export default async function Page() {
     <section className="py-24">
       <div className="container">
         <h1 className="mb-6 text-3xl font-bold">All Users</h1>
-        {data && (
-        <DataTable columns={columns} data={data} />
-
-        )}
+        {data && <DataTable columns={columns} data={data} />}
       </div>
     </section>
   );

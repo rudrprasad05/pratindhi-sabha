@@ -33,6 +33,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import Link from "next/link";
 
 interface DataTableProps<FullPostType, TValue> {
   columns: ColumnDef<FullPostType, TValue>[];
@@ -79,6 +80,10 @@ export function DataTable<TData, TValue>({
             className="max-w-sm"
           />
         </div>
+
+        <Link className="" href={"/admin/post/new"}>
+          New
+        </Link>
 
         {/* Column visibility */}
         <DropdownMenu>
