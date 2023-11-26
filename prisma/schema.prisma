@@ -62,4 +62,7 @@ model Category{
     authorID          String  @db.ObjectId
     authorName        String?
     name              String?
+
+    createdAt         DateTime  @default(now())
+    updatedAt         DateTime  @updatedAt
 }

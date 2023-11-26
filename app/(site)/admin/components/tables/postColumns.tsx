@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { FullPostType } from "@/types";
 import Link from "next/link";
+import { MONTHS } from "./categoryColumns";
 
 export type User = {
   id: string;
@@ -44,16 +45,57 @@ export const postColumns: ColumnDef<FullPostType>[] = [
     accessorKey: "authorName",
     header: "Author",
   },
-  // TODO why is this cuasing hydration error. client does not match server
-  // {
-  //   accessorKey: "createdAt",
-  //   header: "createdAt",
-  //   cell: ({ row }) => {
-  //     const date = new Date(row.getValue("createdAt"));
-  //     const formatted = date.toLocaleDateString();
-  //     return <div className="font-medium">{formatted}</div>;
-  //   },
-  // },
+
+  {
+    accessorKey: "createdAt",
+    header: ({ column }) => {
+      return (
+        <Button
+          className="px-0"
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Date
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const date = new Date(row.getValue("createdAt"));
+      const dayOfMonth = date.getDate();
+      const month =
+        MONTHS[date.getMonth()].charAt(0).toUpperCase() +
+        MONTHS[date.getMonth()].slice(1);
+      const year = date.getFullYear();
+      return (
+        <div className="font-medium">
+          {dayOfMonth} {month} {year}
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "tags",
+    header: ({ column }) => {
+      return (
+        <Button
+          className="px-0"
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Tag
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      var data: any;
+      if (row.getValue("tags") == "")
+        data = <div className="text-gray-500">No Tags</div>;
+      else data = row.getValue("tags");
+      return <div className="font-medium">{data}</div>;
+    },
+  },
   {
     id: "actions",
     cell: ({ row }) => {

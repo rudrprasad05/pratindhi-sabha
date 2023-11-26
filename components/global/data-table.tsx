@@ -38,15 +38,21 @@ import Link from "next/link";
 interface DataTableProps<FullPostType, TValue> {
   columns: ColumnDef<FullPostType, TValue>[];
   data: FullPostType[];
+  type: string;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  type,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+
+  var searchType: string = "";
+  if (type == "post") searchType = "title";
+  if (type == "category") searchType = "name";
 
   const table = useReactTable({
     data,
@@ -72,10 +78,12 @@ export function DataTable<TData, TValue>({
       <div className="flex items-center justify-between">
         <div className="flex items-center py-4">
           <Input
-            placeholder="Search by post title..."
-            value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+            placeholder={`Search by ${searchType}...`}
+            value={
+              (table.getColumn(searchType)?.getFilterValue() as string) ?? ""
+            }
             onChange={(event) =>
-              table.getColumn("title")?.setFilterValue(event.target.value)
+              table.getColumn(searchType)?.setFilterValue(event.target.value)
             }
             className="max-w-sm"
           />

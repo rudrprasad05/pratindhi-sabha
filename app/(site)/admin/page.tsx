@@ -1,18 +1,21 @@
+import { getCategories } from "@/actions/getCategories";
 import { getPosts } from "@/actions/getPosts";
-import { DataTable } from "@/components/global/data-table";
-
-import { postColumns, User } from "./components/tables/postColumns";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { getUser } from "@/actions/getUser";
-import EditProfile from "./components/editprofile/EditProfileModal";
+import { DataTable } from "@/components/global/data-table";
+import { Button } from "@/components/ui/button";
 import axios from "axios";
+import Link from "next/link";
+
+import EditProfile from "./components/editprofile/EditProfileModal";
+import NewCategoryModal from "./components/newCategory/NewCategoryModal";
 import NewProfileModal from "./components/newprofile/NewProfileModal";
 import { categoryColumns } from "./components/tables/categoryColumns";
+import { postColumns, User } from "./components/tables/postColumns";
 
 export default async function Page() {
-  const data = await getPosts();
+  const postData = await getPosts();
   const user = await getUser();
+  const categoryData = await getCategories();
 
   const userId = user?.id;
 
@@ -22,12 +25,14 @@ export default async function Page() {
       <section className="">
         <div className="flex justify-between">
           <h1 className="text-3xl font-bold">All Posts</h1>
-          <Button variant={"link"}>
+          <Button variant={"outline"}>
             <Link href={"/admin/post/new"}>New</Link>
           </Button>
         </div>
 
-        {data && <DataTable columns={postColumns} data={data} />}
+        {postData && (
+          <DataTable type="post" columns={postColumns} data={postData} />
+        )}
       </section>
 
       {/* admin user section */}
@@ -46,13 +51,17 @@ export default async function Page() {
       {/* category section */}
       <section className="my-20">
         <div className="flex justify-between">
-          <h1 className="text-3xl font-bold">All Posts</h1>
-          <Button variant={"link"}>
-            <Link href={"/admin/post/new"}>New</Link>
-          </Button>
+          <h1 className="text-3xl font-bold">All Categories</h1>
+          {user && <NewCategoryModal user={user} name="New Category" />}
         </div>
 
-        {data && <DataTable columns={categoryColumns} data={data} />}
+        {categoryData && (
+          <DataTable
+            type="category"
+            columns={categoryColumns}
+            data={categoryData}
+          />
+        )}
       </section>
     </main>
   );

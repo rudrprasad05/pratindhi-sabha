@@ -13,20 +13,27 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { FullPostType } from "@/types";
+import { FullCategoryType } from "@/types";
 import Link from "next/link";
 
-export type User = {
-  id: string;
-  name: string;
-  emaiL: string;
-  image: string;
-  lastSeen: string;
-};
+export const MONTHS = [
+  "Jan",
+  "feb",
+  "mar",
+  "apr",
+  "may",
+  "jun",
+  "jul",
+  "aug",
+  "sep",
+  "oct",
+  "nov",
+  "dec",
+];
 
-export const categoryColumns: ColumnDef<FullPostType>[] = [
+export const categoryColumns: ColumnDef<FullCategoryType>[] = [
   {
-    accessorKey: "title",
+    accessorKey: "name",
     header: ({ column }) => {
       return (
         <Button
@@ -34,7 +41,7 @@ export const categoryColumns: ColumnDef<FullPostType>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Title
+          Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -45,15 +52,23 @@ export const categoryColumns: ColumnDef<FullPostType>[] = [
     header: "Author",
   },
   // TODO why is this cuasing hydration error. client does not match server
-  // {
-  //   accessorKey: "createdAt",
-  //   header: "createdAt",
-  //   cell: ({ row }) => {
-  //     const date = new Date(row.getValue("createdAt"));
-  //     const formatted = date.toLocaleDateString();
-  //     return <div className="font-medium">{formatted}</div>;
-  //   },
-  // },
+  {
+    accessorKey: "createdAt",
+    header: "Date",
+    cell: ({ row }) => {
+      const date = new Date(row.getValue("createdAt"));
+      const dayOfMonth = date.getDate();
+      const month =
+        MONTHS[date.getMonth()].charAt(0).toUpperCase() +
+        MONTHS[date.getMonth()].slice(1);
+      const year = date.getFullYear();
+      return (
+        <div className="font-medium">
+          {dayOfMonth} {month} {year}
+        </div>
+      );
+    },
+  },
   {
     id: "actions",
     cell: ({ row }) => {

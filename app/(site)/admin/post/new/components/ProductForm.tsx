@@ -15,14 +15,20 @@ import Error403 from "@/components/global/Error403";
 import { User } from "@prisma/client";
 import TextArea from "@/components/global/TextArea";
 import { ok } from "assert";
+import { FullCategoryType } from "@/types";
+import SelectComponent from "@/components/global/Select";
+import { SelectItem } from "@/components/ui/select";
 
 interface props {
-  user?: User | null;
+  user?: User;
+  categories?: FullCategoryType[];
 }
 
-const AuthForm: React.FC<props> = ({ user }) => {
+const AuthForm: React.FC<props> = ({ user, categories }) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const [inputTags, setInputTags] = useState("");
+
   // const auth = ProtectRoutes();
 
   // if (!auth) return <Error403 />;
@@ -43,6 +49,7 @@ const AuthForm: React.FC<props> = ({ user }) => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setLoading(true);
     data.authorID = user?.id;
+    data.tags = inputTags;
     axios
       .post("/api/posts", data)
       .then((res) => {
@@ -83,14 +90,20 @@ const AuthForm: React.FC<props> = ({ user }) => {
           required
           errors={errors}
         />
-        <Input
-          label="Tags"
-          register={register}
-          type={"text"}
-          id="tags"
-          required
-          errors={errors}
-        />
+
+        {categories && (
+          <SelectComponent>
+            {categories.map((cat) => (
+              <SelectItem
+                onMouseDown={() => setInputTags(cat.name || "")}
+                key={cat.id}
+                value={cat.name}
+              >
+                {cat.name}
+              </SelectItem>
+            ))}
+          </SelectComponent>
+        )}
 
         <TextArea
           label="Enter brief description"
