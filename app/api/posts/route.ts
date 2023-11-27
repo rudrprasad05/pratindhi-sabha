@@ -5,7 +5,7 @@ import { FullPostType } from "@/types";
 export async function POST(request: Request) {
   try {
     const body: FullPostType = await request.json();
-    const { title, authorID, tags, content, authorName } = body;
+    const { title, authorID, tags, content, authorName, likes } = body;
 
     const post = await prisma.posts.create({
       data: {
@@ -14,6 +14,8 @@ export async function POST(request: Request) {
         authorName,
         tags,
         content,
+        likes,
+        comments: undefined,
       },
     });
 

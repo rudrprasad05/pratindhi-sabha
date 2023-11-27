@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { FullCategoryType } from "@/types";
 import Link from "next/link";
+import { HiChevronUpDown } from "react-icons/hi2";
 
 export const MONTHS = [
   "Jan",
@@ -42,7 +43,7 @@ export const categoryColumns: ColumnDef<FullCategoryType>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Name
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <HiChevronUpDown className="ml-2 h-5 w-5" />
         </Button>
       );
     },
@@ -51,7 +52,7 @@ export const categoryColumns: ColumnDef<FullCategoryType>[] = [
     accessorKey: "authorName",
     header: "Author",
   },
-  // TODO why is this cuasing hydration error. client does not match server
+
   {
     accessorKey: "createdAt",
     header: "Date",

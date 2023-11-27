@@ -16,6 +16,7 @@ import {
 import { FullPostType } from "@/types";
 import Link from "next/link";
 import { MONTHS } from "./categoryColumns";
+import { HiChevronUpDown } from "react-icons/hi2";
 
 export type User = {
   id: string;
@@ -36,7 +37,7 @@ export const postColumns: ColumnDef<FullPostType>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Title
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <HiChevronUpDown className="ml-2 h-5 w-5" />
         </Button>
       );
     },
@@ -56,7 +57,7 @@ export const postColumns: ColumnDef<FullPostType>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Date
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <HiChevronUpDown className="ml-2 h-5 w-5" />
         </Button>
       );
     },
@@ -84,7 +85,7 @@ export const postColumns: ColumnDef<FullPostType>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Tag
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <HiChevronUpDown className="ml-2 h-5 w-5" />
         </Button>
       );
     },
@@ -92,6 +93,28 @@ export const postColumns: ColumnDef<FullPostType>[] = [
       var data: any;
       if (row.getValue("tags") == "")
         data = <div className="text-gray-500">No Tags</div>;
+      else data = row.getValue("tags");
+      return <div className="font-medium">{data}</div>;
+    },
+  },
+  {
+    accessorKey: "likes",
+    header: ({ column }) => {
+      return (
+        <Button
+          className="px-0"
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Likes
+          <HiChevronUpDown className="ml-2 h-5 w-5" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      var data: any;
+      if (row.getValue("likes") == "")
+        data = <div className="text-gray-500">No Likes</div>;
       else data = row.getValue("tags");
       return <div className="font-medium">{data}</div>;
     },

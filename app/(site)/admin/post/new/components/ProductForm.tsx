@@ -1,33 +1,34 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import axios from "axios";
-import toast from "react-hot-toast";
-import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-
+import React, { useState } from "react";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import ReactQuill from "react-quill";
 import Button from "@/components/global/Button";
 import Input from "@/components/global/Input";
-import SpiniJoji from "@/components/global/Spinner";
-import ProtectRoutes from "@/actions/protectRoutes";
-import Error403 from "@/components/global/Error403";
-import { User } from "@prisma/client";
-import TextArea from "@/components/global/TextArea";
-import { ok } from "assert";
-import { FullCategoryType } from "@/types";
 import SelectComponent from "@/components/global/Select";
+import SpiniJoji from "@/components/global/Spinner";
+import TextArea from "@/components/global/TextArea";
 import { SelectItem } from "@/components/ui/select";
+import { FullCategoryType } from "@/types";
+import { User } from "@prisma/client";
+import "react-quill/dist/quill.snow.css";
+
+// TODO add a rich text editor but no picture included
+// TODO add a picture element using s3 bucket. ONLY 1 picture per post to cut on costs
 
 interface props {
   user?: User;
-  categories?: FullCategoryType[];
+  categories: FullCategoryType[];
 }
 
 const AuthForm: React.FC<props> = ({ user, categories }) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [inputTags, setInputTags] = useState("");
+  const [quillValue, setQuillValue] = useState("");
 
   // const auth = ProtectRoutes();
 
@@ -50,6 +51,9 @@ const AuthForm: React.FC<props> = ({ user, categories }) => {
     setLoading(true);
     data.authorID = user?.id;
     data.tags = inputTags;
+    data.likes = 0;
+    // data.content = quillValue;
+
     axios
       .post("/api/posts", data)
       .then((res) => {
@@ -61,7 +65,7 @@ const AuthForm: React.FC<props> = ({ user, categories }) => {
       })
       .finally(() => {
         setLoading(false);
-        router.back();
+        router.push("/admin");
       });
   };
 
@@ -93,11 +97,11 @@ const AuthForm: React.FC<props> = ({ user, categories }) => {
 
         {categories && (
           <SelectComponent>
-            {categories.map((cat) => (
+            {categories?.map((cat) => (
               <SelectItem
                 onMouseDown={() => setInputTags(cat.name || "")}
                 key={cat.id}
-                value={cat.name}
+                value={cat?.name}
               >
                 {cat.name}
               </SelectItem>
@@ -112,6 +116,12 @@ const AuthForm: React.FC<props> = ({ user, categories }) => {
           errors={errors}
           required
         />
+
+        {/* <ReactQuill
+          preserveWhitespace
+          value={quillValue}
+          onChange={setQuillValue}
+        /> */}
 
         <div className="flex gap-3">
           <Button type="submit">Submit</Button>
