@@ -32,6 +32,7 @@ const PostPage: React.FC<props> = ({ data, user }) => {
       <section>
         <h1 className="text-xl ">{data.title}</h1>
         <p>author: {data.authorName}</p>
+        <pre>{data.content}</pre>
       </section>
       <form>
         <input

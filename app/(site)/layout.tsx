@@ -5,12 +5,7 @@ import React from "react";
 const layout = async ({ children }: { children: React.ReactNode }) => {
   const user = await getUser();
 
-  return (
-    <div>
-      <NavBar user={user} />
-      {children}
-    </div>
-  );
+  return <div>{children}</div>;
 };
 
 export default layout;

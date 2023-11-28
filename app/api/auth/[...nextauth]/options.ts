@@ -1,13 +1,26 @@
+import prisma from "@/app/libs/prismadb";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import bcrypt from "bcrypt";
+import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import prisma from "@/app/libs/prismadb";
-import { AuthOptions } from "next-auth";
 
 export const options: AuthOptions = {
   adapter: PrismaAdapter(prisma),
+  callbacks: {
+    async session({ token, session }) {
+      if (token) {
+        session.user.id = token.id;
+        session.user.name = token.name;
+        session.user.email = token.email;
+        session.user.image = token.picture;
+        session.user.username = token.username;
+      }
+
+      return session;
+    },
+  },
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_ID as string,
@@ -54,6 +67,9 @@ export const options: AuthOptions = {
     }),
   ],
 
+  pages: {
+    signIn: "/sign-in",
+  },
   session: {
     strategy: "jwt",
   },

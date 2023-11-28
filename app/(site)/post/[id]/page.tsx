@@ -7,7 +7,7 @@ const page = async ({ params }: { params: { id: string } }) => {
   const post = await getOnePosts(params.id);
   const user = await getUser();
 
-  return <>{post && <PostPage data={post} user={user} />}</>;
+  return <>{post && user && <PostPage data={post} user={user} />}</>;
 };
 
 export default page;
