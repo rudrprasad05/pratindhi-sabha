@@ -14,21 +14,9 @@ export async function POST(request: Request) {
         message,
         userId,
         postId,
+        isModerated: false,
       },
     });
-
-    // const post = await prisma.posts.update({
-    //   where: { id: postId },
-    //   data: {
-    //     comments: {
-    //       connect: {
-    //         id: comment.id,
-    //       },
-    //     },
-    //   },
-    // });
-
-    // console.log(comment, post);
 
     return NextResponse.json(comment);
   } catch (error: any) {

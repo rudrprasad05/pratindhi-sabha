@@ -9,6 +9,7 @@ interface props {
 
 // TODO make it so that the comment section is not seen by default. click button to show comment section. THis is done to cut on database read costs.
 // TODO make like feature. easy -> 1) add likes to db (list of user IDs)
+// TODO comment moderation
 
 const CommentCard: React.FC<props> = ({ data }) => {
   const user: FullUserType = data.user;
@@ -27,6 +28,12 @@ const CommentCard: React.FC<props> = ({ data }) => {
           <div>{user.name}</div>
           <div className="rounded-full bg-slate-700 w-1 h-1" />
           <div>{data.createdAt.toDateString().slice(3)}</div>
+          {!data.isModerated && (
+            <>
+              <div className="rounded-full bg-slate-700 w-1 h-1" />
+              <div className="text-rose-500">Await moderation</div>
+            </>
+          )}
         </div>
         <div className="py-2">{data.message}</div>
         <div>

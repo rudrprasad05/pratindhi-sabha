@@ -3,7 +3,7 @@ import { InputClass } from "@/components/ui/input";
 import { FullPostType, FullUserType } from "@/types";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import react, { useState } from "react";
+import react, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 
 interface props {
@@ -19,6 +19,11 @@ const PostComments: React.FC<props> = ({ data, user }) => {
   const handlePostSubmit = async (event: any) => {
     event.preventDefault();
 
+    if (disableButton) {
+      toast.error("Max Moderated Comments Reached");
+      return;
+    }
+
     const commentData = {
       message: commentValue,
       userId: user.id,
@@ -33,6 +38,7 @@ const PostComments: React.FC<props> = ({ data, user }) => {
         }
         setDisableButton(true);
         setCommentValue("");
+        localStorage.setItem("disableButton", "true");
         router.refresh();
       })
       .catch((error) => toast.success("An error occured"));

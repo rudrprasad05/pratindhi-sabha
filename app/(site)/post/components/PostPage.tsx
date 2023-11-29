@@ -30,9 +30,12 @@ const PostPage: React.FC<props> = ({ data, user }) => {
 
       <PostComments data={data} user={user} />
 
-      {data.comments?.map((data) => (
-        <CommentCard key={data.id} data={data} />
-      ))}
+      {data.comments?.map((data) => {
+        if (user.id == data.userId && !data.isModerated)
+          return <CommentCard key={data.id} data={data} />;
+        else if (data.isModerated)
+          return <CommentCard key={data.id} data={data} />;
+      })}
 
       {data.comments.length < 1 && (
         <div className="text-slate-700 flex items-center gap-5">

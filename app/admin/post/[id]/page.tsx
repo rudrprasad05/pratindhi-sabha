@@ -13,10 +13,10 @@ import SelectComponent from "@/components/global/Select";
 import { SelectItem } from "@radix-ui/react-select";
 import EditProfile from "../../components/editprofile/EditProfileModal";
 import EditPostForm from "./EditPostForm";
-import { getOnePosts, getPosts } from "@/actions/getPosts";
+import { getOnePostWithComments } from "@/actions/getPosts";
 
 const Page = async ({ params }: { params: { id: string } }) => {
-  const post = await getOnePosts(params.id);
+  const post = await getOnePostWithComments(params.id);
 
   return <main>{post && <EditPostForm post={post} />}</main>;
 };

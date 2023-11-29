@@ -6,7 +6,7 @@ export async function GET(request: Request, { params }: any) {
   try {
     const { id } = params;
 
-    const posts = await prisma.posts.findUnique({
+    const posts = await prisma.post.findUnique({
       where: {
         id: id,
       },
@@ -32,9 +32,9 @@ export async function PATCH(request: Request, { params }: any) {
   try {
     const { id } = params;
     const body: FullPostType = await request.json();
-    const { title, content, authorName, tags, authorID } = body;
+    const { title, content, authorName, tags, authorId } = body;
 
-    const post = await prisma.posts.update({
+    const post = await prisma.post.update({
       where: {
         id,
       },
@@ -43,7 +43,7 @@ export async function PATCH(request: Request, { params }: any) {
         content,
         authorName,
         tags,
-        authorID,
+        authorId,
       },
     });
     return NextResponse.json(post);
@@ -56,7 +56,7 @@ export async function DELETE(request: Request, { params }: any) {
   try {
     const { id } = params;
 
-    const post = await prisma.posts.delete({
+    const post = await prisma.post.delete({
       where: {
         id,
       },

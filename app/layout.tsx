@@ -26,7 +26,7 @@ export default async function RootLayout({
         <AuthContext>
           <Toaster />
           <NavBar user={user} />
-          <main className="h-full">{children}</main>
+          <main className="">{children}</main>
           {/* <Footer /> */}
         </AuthContext>
       </body>

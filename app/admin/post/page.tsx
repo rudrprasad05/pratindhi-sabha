@@ -6,11 +6,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import axios from "axios";
 import Link from "next/link";
 
-import EditProfile from "./components/editprofile/EditProfileModal";
-import NewCategoryModal from "./components/newCategory/NewCategoryModal";
-import NewProfileModal from "./components/newprofile/NewProfileModal";
-import { categoryColumns } from "./components/tables/categoryColumns";
-import { postColumns, User } from "./components/tables/postColumns";
+import { postColumns } from "../components/tables/postColumns";
 
 export default async function Page() {
   const postData = await getPosts();
@@ -22,13 +18,21 @@ export default async function Page() {
   return (
     <main className="my-10 w-4/5 mx-auto">
       {/* Post table section */}
-      <Link href={"/admin/post"}>Posts</Link>
+      <section className="">
+        <div className="flex justify-between">
+          <h1 className="text-3xl font-bold">All Posts</h1>
+          <Link
+            href={"/admin/post/new"}
+            className={buttonVariants({ variant: "outline" })}
+          >
+            New
+          </Link>
+        </div>
 
-      {/* admin user section */}
-      <Link href={"/admin/users"}>Users</Link>
-
-      {/* category section */}
-      <Link href={"/admin/categories"}>Categories</Link>
+        {postData && (
+          <DataTable type="post" columns={postColumns} data={postData} />
+        )}
+      </section>
     </main>
   );
 }

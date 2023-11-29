@@ -1,17 +1,17 @@
-import { getUser } from "@/actions/getUser";
+import { getPosts } from "@/actions/getPosts";
 import SideNav from "@/components/global/SideNav";
-import { NavBar } from "@/components/navbar/navBar";
 import React from "react";
 
 const layout = async ({ children }: { children: React.ReactNode }) => {
-  const user = await getUser();
-
+  const posts = await getPosts();
   return (
-    <div className="flex">
-      <div className="w-10/12 py-15">
-        <div className="w-4/5 mx-auto">{children}</div>
+    <div className="flex relative w-4/5 mx-auto gap-24">
+      <div className="w-9/12 py-15">
+        <div className="">{children}</div>
       </div>
-      <SideNav />
+      <div className="w-3/12 py-15 ">
+        <SideNav posts={posts} />
+      </div>
     </div>
   );
 };

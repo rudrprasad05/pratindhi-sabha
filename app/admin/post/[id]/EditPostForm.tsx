@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import SelectComponent from "@/components/global/Select";
 import { SelectItem } from "@radix-ui/react-select";
 import ReactQuill from "react-quill";
+import AdminPostsComments from "../components/AdminPostsComments";
 
 interface props {
   post: FullPostType;
@@ -40,7 +41,7 @@ const EditPostForm: React.FC<props> = ({ post }) => {
       authorName: post.authorName,
       tags: post.tags,
       content: post.content,
-      authorId: post.authorID,
+      authorId: post.authorId,
     },
   });
 
@@ -149,6 +150,13 @@ const EditPostForm: React.FC<props> = ({ post }) => {
           </Button>
         </div>
       </form>
+
+      <div className="w-3/5 mx-auto">
+        <h1 className="py-10">Edit Comments</h1>
+        {post.comments.map((item) => (
+          <AdminPostsComments key={item.id} data={item} />
+        ))}
+      </div>
     </div>
   );
 };
