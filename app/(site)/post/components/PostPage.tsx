@@ -1,8 +1,11 @@
 "use client";
 
-import { FullCommentType, FullPostType, FullUserType } from "@/types";
-import axios from "axios";
+import { FullPostType, FullUserType } from "@/types";
 import React, { useState } from "react";
+import CommentCard from "./CommentCard";
+import PostComments from "./PostComments";
+import AuthorCard from "@/components/global/AuthorCard";
+import { GiSpiderWeb } from "react-icons/gi";
 
 interface props {
   data: FullPostType;
@@ -10,41 +13,33 @@ interface props {
 }
 
 const PostPage: React.FC<props> = ({ data, user }) => {
-  const [commentValue, setCommentValue] = useState<string>("");
-
-  const handlePostSubmit = async (event: any) => {
-    event.preventDefault();
-
-    const commentData = {
-      message: commentValue,
-      userId: user.id,
-      postId: data.id,
-    };
-
-    axios
-      .post("/api/comment", commentData)
-      .then((res) => console.log(res.data))
-      .catch((error) => console.log(error));
-  };
-
+  console.log(data.author);
   return (
-    <main className="w-4/5 mx-auto py-10">
+    <main className="">
       <section>
-        <h1 className="text-xl ">{data.title}</h1>
-        <p>author: {data.authorName}</p>
-        <pre>{data.content}</pre>
+        <h1 className="text-5xl pb-10">{data.title}</h1>
+        <img className="rounded-sm shadow-sm" src="/pic.jpg" alt="" />
+        {user && <AuthorCard user={data.author} />}
+
+        <p>{data.content}</p>
       </section>
-      <form>
-        <input
-          value={commentValue}
-          onChange={(e) => setCommentValue(e.target.value)}
-          type="text"
-          placeholder="Enter comment"
-        />
-        <button onClick={(event) => handlePostSubmit(event)} type="submit">
-          Post
-        </button>
-      </form>
+
+      {/* <CommentSleeve>
+        <div className={buttonVariants()}>Comments</div>
+      </CommentSleeve> */}
+
+      <PostComments data={data} user={user} />
+
+      {data.comments?.map((data) => (
+        <CommentCard key={data.id} data={data} />
+      ))}
+
+      {data.comments.length < 1 && (
+        <div className="text-slate-700 flex items-center gap-5">
+          <GiSpiderWeb className={"w-16 h-16"} />
+          No comments yet. Start a new Converstaion
+        </div>
+      )}
     </main>
   );
 };

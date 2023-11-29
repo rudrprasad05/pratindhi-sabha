@@ -45,19 +45,21 @@ model User {
 
     accounts Account[]
     comments Comment[]
+    posts Post[]
 
 }
 
-model Posts{
+model Post{
     id                String    @id @default(auto()) @map("_id") @db.ObjectId
-    authorID          String    @db.ObjectId
+    authorId          String    @db.ObjectId
     authorName        String?
     tags              String?
     content           String?
     title             String?
     likes             Int? 
 
-    comments Comment[]
+    comments          Comment[]
+    author            User      @relation(fields: [authorId], references: [id])
 
     createdAt         DateTime  @default(now())
     updatedAt         DateTime  @updatedAt
@@ -72,7 +74,7 @@ model Comment {
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String    @db.ObjectId
 
-  post      Posts      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  post      Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId    String     @db.ObjectId
   
 }

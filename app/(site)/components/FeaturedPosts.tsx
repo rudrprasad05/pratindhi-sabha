@@ -9,7 +9,7 @@ interface props {
 
 const FeaturedPosts: React.FC<props> = ({ posts }) => {
   return (
-    <main className="w-4/5 mx-auto">
+    <main className="mx-auto">
       <h1 className="text-3xl text-orange-400 py-10">Featured Posts</h1>
       <section className="grid grid-cols-3 gap-5">
         {posts?.map((post) => (

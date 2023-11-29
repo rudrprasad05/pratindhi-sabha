@@ -49,7 +49,7 @@ const AuthForm: React.FC<props> = ({ user, categories }) => {
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setLoading(true);
-    data.authorID = user?.id;
+    data.authorId = user?.id;
     data.tags = inputTags;
     data.likes = 0;
     // data.content = quillValue;

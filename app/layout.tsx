@@ -5,6 +5,7 @@ import AuthContext from "./context/AuthContext";
 import { Toaster } from "react-hot-toast";
 import { getUser } from "@/actions/getUser";
 import { NavBar } from "@/components/navbar/navBar";
+import Footer from "@/components/global/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,6 +27,7 @@ export default async function RootLayout({
           <Toaster />
           <NavBar user={user} />
           <main className="h-full">{children}</main>
+          {/* <Footer /> */}
         </AuthContext>
       </body>
     </html>

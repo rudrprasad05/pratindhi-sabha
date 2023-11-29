@@ -17,18 +17,18 @@ export async function POST(request: Request) {
       },
     });
 
-    const post = await prisma.posts.update({
-      where: { id: postId },
-      data: {
-        comments: {
-          connect: {
-            id: comment.id,
-          },
-        },
-      },
-    });
+    // const post = await prisma.posts.update({
+    //   where: { id: postId },
+    //   data: {
+    //     comments: {
+    //       connect: {
+    //         id: comment.id,
+    //       },
+    //     },
+    //   },
+    // });
 
-    console.log(comment, post);
+    // console.log(comment, post);
 
     return NextResponse.json(comment);
   } catch (error: any) {

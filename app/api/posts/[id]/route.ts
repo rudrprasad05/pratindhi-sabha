@@ -6,12 +6,22 @@ export async function GET(request: Request, { params }: any) {
   try {
     const { id } = params;
 
-    const products = await prisma.posts.findUnique({
+    const posts = await prisma.posts.findUnique({
       where: {
-        id,
+        id: id,
+      },
+      include: {
+        comments: {
+          include: {
+            user: true,
+          },
+          orderBy: {
+            createdAt: "desc",
+          },
+        },
       },
     });
-    return NextResponse.json(products);
+    return NextResponse.json(posts);
   } catch (error: any) {
     console.log(error);
     return [];

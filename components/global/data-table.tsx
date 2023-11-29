@@ -34,6 +34,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { HiMiniAdjustmentsHorizontal } from "react-icons/hi2";
 
 interface DataTableProps<FullPostType, TValue> {
   columns: ColumnDef<FullPostType, TValue>[];
@@ -92,8 +93,8 @@ export function DataTable<TData, TValue>({
         {/* Column visibility */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columns
+            <Button variant={"ghost"} className="p-2 hover:bg-inherit">
+              <HiMiniAdjustmentsHorizontal className={"w-6 h-6"} />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">

@@ -2,7 +2,7 @@ import prisma from "@/app/libs/prismadb";
 
 export async function getPosts() {
   try {
-    const post = prisma.posts.findMany();
+    const post = prisma.post.findMany();
 
     if (!post) return null;
 
@@ -14,8 +14,47 @@ export async function getPosts() {
 
 export async function getOnePosts(id: string) {
   try {
-    const post = prisma.posts.findUnique({
-      where: { id },
+    const post = await prisma.post.findUnique({
+      where: {
+        id: id,
+      },
+      // include: {
+      //   comments: {
+      //     include: {
+      //       user: true,
+      //     },
+      //     orderBy: {
+      //       createdAt: "desc",
+      //     },
+      //   },
+      // },
+    });
+
+    if (!post) return null;
+
+    return post;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getOnePostWithComments(id: string) {
+  try {
+    const post = await prisma.post.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        author: true,
+        comments: {
+          include: {
+            user: true,
+          },
+          orderBy: {
+            createdAt: "desc",
+          },
+        },
+      },
     });
 
     if (!post) return null;
