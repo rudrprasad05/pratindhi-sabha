@@ -1,5 +1,8 @@
+"use client";
+
 import { Badge } from "@/components/ui/badge";
 import { FullPostType } from "@/types";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
 
@@ -8,6 +11,8 @@ interface props {
 }
 
 const PostCard: React.FC<props> = ({ post }) => {
+  const session = useSession();
+  console.log(session);
   return (
     <article>
       <div>

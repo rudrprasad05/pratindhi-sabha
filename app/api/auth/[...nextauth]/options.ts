@@ -1,5 +1,6 @@
 import prisma from "@/app/libs/prismadb";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { User } from "@prisma/client";
 import bcrypt from "bcrypt";
 import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -8,19 +9,7 @@ import GoogleProvider from "next-auth/providers/google";
 
 export const options: AuthOptions = {
   adapter: PrismaAdapter(prisma),
-  callbacks: {
-    async session({ token, session }) {
-      if (token) {
-        session.user.id = token.id;
-        session.user.name = token.name;
-        session.user.email = token.email;
-        session.user.image = token.picture;
-        session.user.username = token.username;
-      }
 
-      return session;
-    },
-  },
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_ID as string,
@@ -66,9 +55,39 @@ export const options: AuthOptions = {
       },
     }),
   ],
+  // on login you get the user but only once. have to capture it to token
+  callbacks: {
+    async jwt({ token, user, session }) {
+      // token.id = user.id
+      // return session
+      if (user) {
+        if ((user as User).role == null) (user as User).role == "user";
+        return {
+          ...token,
+          id: user.id,
+          role: (user as User).role,
+        };
+      }
+
+      return token;
+    },
+    // after capturing user info in the token have to pass it to session.
+    async session({ session, token, user }) {
+      // session.id = token.id
+      // return session
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.id,
+          role: token.role,
+        },
+      };
+    },
+  },
 
   pages: {
-    signIn: "/sign-in",
+    signIn: "/login",
   },
   session: {
     strategy: "jwt",

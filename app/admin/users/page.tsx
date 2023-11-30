@@ -3,11 +3,10 @@ import { getPosts } from "@/actions/getPosts";
 import { getUser } from "@/actions/getUser";
 import EditProfile from "../components/editprofile/EditProfileModal";
 import NewProfileModal from "../components/newprofile/NewProfileModal";
+import Error403 from "@/components/global/Error403";
 
 export default async function Page() {
   const user = await getUser();
-
-  const userId = user?.id;
 
   return (
     <main className="my-10 w-4/5 mx-auto">

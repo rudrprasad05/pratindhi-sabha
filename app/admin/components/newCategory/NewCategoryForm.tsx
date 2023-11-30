@@ -19,9 +19,6 @@ const NewCategoryForm: React.FC<props> = ({ user }) => {
   const [loading, setLoading] = useState(false);
   const [isPasswordMatch, setIsPasswordMatch] = useState<boolean>(true);
   const router = useRouter();
-  // const auth = ProtectRoutes();
-
-  // if (!auth) return <Error403 />;
 
   const {
     register,

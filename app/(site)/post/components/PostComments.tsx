@@ -14,7 +14,15 @@ interface props {
 const PostComments: React.FC<props> = ({ data, user }) => {
   const [commentValue, setCommentValue] = useState<string>("");
   const [disableButton, setDisableButton] = useState<boolean>(false);
+  const [notAuth, setNotAuth] = useState<boolean>(!user ? true : false);
+
   const router = useRouter();
+
+  useEffect(() => {
+    if (!user) {
+      setNotAuth(true);
+    } else setNotAuth(false);
+  }, [user]);
 
   const handlePostSubmit = async (event: any) => {
     event.preventDefault();
@@ -57,7 +65,7 @@ const PostComments: React.FC<props> = ({ data, user }) => {
         />
         <Button
           variant={"primary"}
-          disabled={disableButton}
+          disabled={disableButton || notAuth}
           onClick={(event) => handlePostSubmit(event)}
           type="submit"
         >
@@ -70,6 +78,11 @@ const PostComments: React.FC<props> = ({ data, user }) => {
             Thank you for your comment. You can post another comment after it
             has been moderated
           </p>
+        </div>
+      )}
+      {notAuth && (
+        <div className="text-slate-600 italic">
+          <p>Login in to post comments</p>
         </div>
       )}
     </div>

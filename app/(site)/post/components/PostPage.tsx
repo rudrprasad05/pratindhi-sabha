@@ -6,6 +6,7 @@ import CommentCard from "./CommentCard";
 import PostComments from "./PostComments";
 import AuthorCard from "@/components/global/AuthorCard";
 import { GiSpiderWeb } from "react-icons/gi";
+import { useSession } from "next-auth/react";
 
 interface props {
   data: FullPostType;
@@ -13,7 +14,9 @@ interface props {
 }
 
 const PostPage: React.FC<props> = ({ data, user }) => {
-  console.log(data.author);
+  const session = useSession();
+  console.log(session);
+
   return (
     <main className="">
       <section>

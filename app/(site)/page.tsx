@@ -9,10 +9,12 @@ export default async function Home() {
 
   return (
     <div>
-      {posts && (
+      {posts ? (
         <div>
           <FeaturedPosts posts={posts} />
         </div>
+      ) : (
+        <div>loading</div>
       )}
     </div>
   );

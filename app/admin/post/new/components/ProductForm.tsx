@@ -28,11 +28,6 @@ const AuthForm: React.FC<props> = ({ user, categories }) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [inputTags, setInputTags] = useState("");
-  const [quillValue, setQuillValue] = useState("");
-
-  // const auth = ProtectRoutes();
-
-  // if (!auth) return <Error403 />;
 
   const {
     register,
