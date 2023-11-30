@@ -6,15 +6,15 @@ import TextArea from "@/components/global/TextArea";
 import { FullCategoryType, FullPostType } from "@/types";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { GiSpiderWeb } from "react-icons/gi";
+import SelectComponent from "@/components/global/Select";
+import { Button } from "@/components/ui/button";
+import { SelectItem } from "@radix-ui/react-select";
+import React, { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import DeleteModal from "../components/DeletePostModal";
-import { Button } from "@/components/ui/button";
-import SelectComponent from "@/components/global/Select";
-import { SelectItem } from "@radix-ui/react-select";
-import ReactQuill from "react-quill";
 import AdminPostsComments from "../components/AdminPostsComments";
+import DeleteModal from "../components/DeletePostModal";
 
 interface props {
   post: FullPostType;
@@ -79,9 +79,9 @@ const EditPostForm: React.FC<props> = ({ post }) => {
   };
 
   return (
-    <div className="w-screen h-[90vh] py-10">
+    <div className="">
       {loading && <SpiniJoji />}
-      <div className=" flex justify-between w-3/5 mx-auto my-10">
+      <div className=" flex justify-between">
         <div className="text-3xl text-center">Edit Post</div>
         <DeleteModal
           description="All references will be removed from our servers and backups"
@@ -89,11 +89,7 @@ const EditPostForm: React.FC<props> = ({ post }) => {
           onClick={() => handleDelete()}
         />
       </div>
-      <form
-        action=""
-        onSubmit={handleSubmit(onSubmit)}
-        className="w-3/5 mx-auto mt-0"
-      >
+      <form action="" onSubmit={handleSubmit(onSubmit)} className="">
         <Input
           label="Title"
           register={register}
@@ -128,6 +124,7 @@ const EditPostForm: React.FC<props> = ({ post }) => {
         /> */}
 
         <TextArea
+          rows={8}
           label="Enter brief description"
           id="content"
           register={register}
@@ -151,11 +148,17 @@ const EditPostForm: React.FC<props> = ({ post }) => {
         </div>
       </form>
 
-      <div className="w-3/5 mx-auto">
-        <h1 className="py-10">Edit Comments</h1>
+      <div className="">
+        <h1 className="text-3xl py-10">Edit Comments</h1>
         {post.comments.map((item) => (
           <AdminPostsComments key={item.id} data={item} />
         ))}
+        {post.comments.length < 1 && (
+          <div className="text-slate-700 flex items-center gap-5">
+            <GiSpiderWeb className={"w-16 h-16"} />
+            No comments yet
+          </div>
+        )}
       </div>
     </div>
   );

@@ -8,13 +8,17 @@ import { toast } from "react-hot-toast";
 
 interface props {
   data: FullPostType;
-  user: FullUserType;
+  user: any;
+  disableButtonProps: boolean;
 }
 
-const PostComments: React.FC<props> = ({ data, user }) => {
+const PostComments: React.FC<props> = ({ data, user, disableButtonProps }) => {
   const [commentValue, setCommentValue] = useState<string>("");
-  const [disableButton, setDisableButton] = useState<boolean>(false);
+  const [disableButton, setDisableButton] =
+    useState<boolean>(disableButtonProps);
   const [notAuth, setNotAuth] = useState<boolean>(!user ? true : false);
+
+  console.log(disableButton);
 
   const router = useRouter();
 

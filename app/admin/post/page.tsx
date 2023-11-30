@@ -15,7 +15,7 @@ export default async function Page() {
 
   return (
     <>
-      <main className="my-10 w-4/5 mx-auto">
+      <main className="">
         {/* Post table section */}
         <section className="">
           <div className="flex justify-between">

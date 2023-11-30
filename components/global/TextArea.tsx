@@ -14,6 +14,7 @@ interface Props {
   disabled?: boolean;
   autoComplete?: string;
   value?: string;
+  rows?: number;
 }
 
 const TextArea: React.FC<Props> = ({
@@ -25,6 +26,7 @@ const TextArea: React.FC<Props> = ({
   errors,
   disabled,
   autoComplete,
+  rows,
   value,
 }) => {
   return (
@@ -34,6 +36,7 @@ const TextArea: React.FC<Props> = ({
       </label>
       <div className="mt-2">
         <textarea
+          rows={rows || 4}
           id={id}
           value={value}
           autoComplete={autoComplete}

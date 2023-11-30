@@ -22,8 +22,8 @@ interface props {
 const DeleteModal: React.FC<props> = ({ description, onClick }) => {
   return (
     <Dialog>
-      <DialogTrigger className="text-red-500 hover:text-red-600 flex justify-center rounded-md px-2 py-1">
-        <HiOutlineArchiveBoxXMark size={30} />
+      <DialogTrigger className="text-red-500 hover:text-red-600 flex items-center gap-5 justify-center rounded-md px-2 py-1">
+        Delete Post <HiOutlineArchiveBoxXMark size={30} />
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

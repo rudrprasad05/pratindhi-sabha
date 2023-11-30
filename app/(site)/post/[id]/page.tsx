@@ -6,9 +6,8 @@ import PostPage from "../components/PostPage";
 
 const page = async ({ params }: { params: { id: string } }) => {
   const post = await getOnePostWithComments(params.id);
-  const user = await getUser();
 
-  return <>{post && <PostPage data={post} user={user} />}</>;
+  return <>{post && <PostPage data={post} />}</>;
 };
 
 export default page;

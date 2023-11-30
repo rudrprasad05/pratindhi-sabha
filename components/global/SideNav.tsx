@@ -8,8 +8,8 @@ interface props {
 const SideNav: React.FC<props> = ({ posts }) => {
   const arr: FullPostType[] = posts.slice(0, 3);
   return (
-    <div className=" sticky top-8 bg-gray-50 py-5">
-      <h1 className="text-xl font-bold">Recent Posts</h1>
+    <div className=" sticky rounded-sm shadow-sm top-8 bg-orange-200 py-5 px-7">
+      <h1 className="text-xl font-bold pb-5">Recent Posts</h1>
       {arr.map((item) => (
         <div key={item.id} className="">
           <div className="">

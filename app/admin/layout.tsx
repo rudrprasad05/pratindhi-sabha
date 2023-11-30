@@ -1,3 +1,4 @@
+import AdminCommand from "@/components/global/AdminCommand";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
@@ -11,5 +12,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <main className="h-full">{children}</main>;
+  return (
+    <main className="relative flex my-10 w-4/5 mx-auto gap-10">
+      <div className="grow">{children}</div>
+      <div className="relative">
+        <AdminCommand />
+      </div>
+    </main>
+  );
 }

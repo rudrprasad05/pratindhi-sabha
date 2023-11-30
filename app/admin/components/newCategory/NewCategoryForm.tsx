@@ -10,6 +10,7 @@ import SpiniJoji from "@/components/global/Spinner";
 import { User } from "@prisma/client";
 import axios from "axios";
 import toast from "react-hot-toast";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
 
 interface props {
   user?: User;
@@ -74,9 +75,9 @@ const NewCategoryForm: React.FC<props> = ({ user }) => {
           errors={errors}
         />
 
-        <div className="">
-          <Button type="submit">Submit</Button>
-        </div>
+        <DialogPrimitive.Close className="">
+          <Button type="submit">Save</Button>
+        </DialogPrimitive.Close>
       </form>
     </div>
   );

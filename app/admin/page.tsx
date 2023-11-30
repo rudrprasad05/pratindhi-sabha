@@ -17,8 +17,8 @@ export default function Page() {
   return (
     <>
       {
-        <main className="my-10 w-4/5 mx-auto grid grid-cols-4 gap-10">
-          <div className="grid grid-cols-3 gap-10 grow col-span-3">
+        <main className="grow">
+          <div className="grid grid-cols-3 gap-10 ">
             <AdminCards href={"/admin/post"} name="Posts" Icon={FaPenFancy} />
             <AdminCards
               href={"/admin/users"}
@@ -30,10 +30,6 @@ export default function Page() {
               name="Categories"
               Icon={MdOutlineLabel}
             />
-          </div>
-
-          <div>
-            <AdminCommand />
           </div>
         </main>
       }
