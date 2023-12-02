@@ -1,13 +1,32 @@
-import { getOnePosts, getOnePostWithComments } from "@/actions/getPosts";
-import { getUser } from "@/actions/getUser";
-import React from "react";
-
+import { GetFormById, GetForms } from "@/actions/form";
+import FormBuilder from "@/components/FormBuilder";
+import { FormCard, FormCardSkeleton } from "@/components/FormCard";
+import { Suspense } from "react";
 import PostPage from "../components/PostPage";
+import FormSubmitComponent from "@/components/PostSection";
+import { FormElementInstance } from "@/components/FormElements";
 
-const page = async ({ params }: { params: { id: string } }) => {
-  const post = await getOnePostWithComments(params.id);
+async function page({ params }: { params: { id: string } }) {
+  const { id } = params;
+  const post = await GetFormById(id);
 
-  return <>{post && <PostPage data={post} />}</>;
-};
+  console.log(post);
+
+  if (!post) {
+    return <>No forms</>;
+  }
+
+  return (
+    <div className="w-full">
+      <Suspense
+        fallback={[1, 2, 3, 4].map((el) => (
+          <FormCardSkeleton key={el} />
+        ))}
+      >
+        <PostPage data={post} />
+      </Suspense>
+    </div>
+  );
+}
 
 export default page;

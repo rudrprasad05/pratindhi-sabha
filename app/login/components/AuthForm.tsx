@@ -97,7 +97,7 @@ const AuthForm = () => {
     <div className="w-screen h-[90vh] relative grid items-center">
       {isLoading && <SpiniJoji />}
       {variant == "LOGIN" || variant == "REGISTER" ? (
-        <div className="px-8 py-5 rounded-lg bg-orange-100 lg:w-1/3 w-4/5 mx-auto my-auto">
+        <div className="px-8 py-5 rounded-lg bg-secondary lg:w-1/3 w-4/5 mx-auto my-auto">
           {variant == "LOGIN" && (
             <div className="text-xl text-center">Sign into Your Account</div>
           )}
@@ -144,10 +144,10 @@ const AuthForm = () => {
           <div className="mt-6">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-500" />
+                <div className="w-full border-t border-muted-foreground" />
               </div>
               <div className="relative flex justify-center">
-                <span className="px-3 text-gray-500 text-sm bg-orange-100">
+                <span className="px-3 text-muted-foreground text-sm bg-secondary">
                   Or Continue With
                 </span>
               </div>
@@ -184,7 +184,7 @@ const AuthForm = () => {
           </div>
         </div>
       ) : (
-        <div className="px-8 py-5 rounded-lg bg-secondary-bg w-1/3 mx-auto my-auto">
+        <div className="px-8 py-5 rounded-lg bg-muted w-1/3 mx-auto my-auto">
           <div className="text-xl text-center">Admin Login</div>
           <form action="" onSubmit={handleSubmit(onSubmit)}>
             <Input

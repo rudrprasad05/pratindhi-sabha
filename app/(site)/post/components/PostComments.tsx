@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { InputClass } from "@/components/ui/input";
+import { Input, InputClass } from "@/components/ui/input";
+import { toast } from "@/components/ui/use-toast";
+import { cn } from "@/lib/utils";
 import { FullPostType, FullUserType } from "@/types";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import react, { useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
 
 interface props {
   data: FullPostType;
@@ -32,7 +33,10 @@ const PostComments: React.FC<props> = ({ data, user, disableButtonProps }) => {
     event.preventDefault();
 
     if (disableButton) {
-      toast.error("Max Moderated Comments Reached");
+      toast({
+        title: "Success",
+        description: "Your form has been saved",
+      });
       return;
     }
 
@@ -46,21 +50,30 @@ const PostComments: React.FC<props> = ({ data, user, disableButtonProps }) => {
       .post("/api/comment", commentData)
       .then((res) => {
         if (res.status == 200) {
-          toast.success("Comment Submited");
+          toast({
+            title: "Success",
+            description: "Your form has been saved",
+          });
         }
         setDisableButton(true);
         setCommentValue("");
         localStorage.setItem("disableButton", "true");
         router.refresh();
       })
-      .catch((error) => toast.success("An error occured"));
+      .catch((error) => {
+        toast({
+          title: "Success",
+          description: "Your form has been saved",
+        });
+      });
   };
+
   return (
     <div>
       <h1 className="py-10 text-2xl">Comments Section</h1>
 
       <form className="flex gap-10 pb-10">
-        <input
+        <Input
           className={`${InputClass} grow`}
           value={commentValue}
           onChange={(e) => setCommentValue(e.target.value)}
@@ -68,7 +81,7 @@ const PostComments: React.FC<props> = ({ data, user, disableButtonProps }) => {
           placeholder="Enter comment"
         />
         <Button
-          variant={"primary"}
+          className={cn("bg-primary", disableButton && "cursor-not-allowed")}
           disabled={disableButton || notAuth}
           onClick={(event) => handlePostSubmit(event)}
           type="submit"
@@ -77,7 +90,7 @@ const PostComments: React.FC<props> = ({ data, user, disableButtonProps }) => {
         </Button>
       </form>
       {disableButton && (
-        <div className="text-slate-600 italic">
+        <div className="">
           <p>
             Thank you for your comment. You can post another comment after it
             has been moderated

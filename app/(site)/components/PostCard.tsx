@@ -18,9 +18,9 @@ const PostCard: React.FC<props> = ({ post }) => {
       <div>
         <img src="/pic.jpg" className="rounded-md" />
       </div>
-      <div>{post.title}</div>
+      <div>{post.name}</div>
       <div className="flex justify-between">
-        {post.tags != "" ? (
+        {/* {post != "" ? (
           <Badge className="capitalize" variant={"outline"}>
             {post.tags}
           </Badge>
@@ -28,7 +28,7 @@ const PostCard: React.FC<props> = ({ post }) => {
           <Badge className="capitalize" variant={"outline"}>
             No Tag
           </Badge>
-        )}
+        )} */}
         <Link
           href={`/post/${post.id}`}
           className="text-sm text-slate-400 ml-auto"

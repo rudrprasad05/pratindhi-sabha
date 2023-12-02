@@ -2,6 +2,7 @@ import {
   Sheet,
   SheetContent,
   SheetDescription,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -12,6 +13,7 @@ import React from "react";
 import Button from "./Button";
 import { SignOutContext } from "@/actions/signOut";
 import SignoutPopup from "./SignoutPopup";
+import ThemeSwitcher from "../ThemeSwitcher";
 
 interface props {
   children?: React.ReactNode;
@@ -27,10 +29,15 @@ const EditProfileSheet: React.FC<props> = ({ children, user }) => {
           <SheetTitle>
             Welcome back {user && user.name.split(" ")[0]}
           </SheetTitle>
-          <SheetDescription>
+          <SheetDescription className="relative h-full">
             <SignoutPopup name="SignOut" onClick={() => SignOutContext()} />
           </SheetDescription>
         </SheetHeader>
+        <SheetFooter className="absolute bottom-5">
+          <div className="">
+            <ThemeSwitcher />
+          </div>
+        </SheetFooter>
       </SheetContent>
     </Sheet>
   );

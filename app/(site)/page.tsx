@@ -3,19 +3,16 @@ import { getUser } from "@/actions/getUser";
 import { getSession } from "next-auth/react";
 
 import FeaturedPosts from "./components/FeaturedPosts";
+import { GetForms } from "@/actions/form";
 
 export default async function Home() {
-  const posts = await getPosts();
+  const posts = await GetForms();
 
   return (
     <div>
-      {posts ? (
-        <div>
-          <FeaturedPosts posts={posts} />
-        </div>
-      ) : (
-        <div>loading</div>
-      )}
+      <div>
+        <FeaturedPosts posts={posts} />
+      </div>
     </div>
   );
 }
