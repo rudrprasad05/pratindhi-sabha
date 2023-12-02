@@ -1,4 +1,4 @@
-import prisma from "@/app/libs/prismadb";
+import prisma from "@/lib/prismadb";
 import { FullCommentType } from "@/types";
 import { NextResponse } from "next/server";
 

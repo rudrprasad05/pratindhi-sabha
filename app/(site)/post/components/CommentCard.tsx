@@ -5,32 +5,32 @@ import react from "react";
 
 interface props {
   data: FullCommentType;
+  user: FullUserType;
 }
 
 // TODO make it so that the comment section is not seen by default. click button to show comment section. THis is done to cut on database read costs.
 // TODO make like feature. easy -> 1) add likes to db (list of user IDs)
 // TODO comment moderation
 
-const CommentCard: React.FC<props> = ({ data }) => {
-  const user: FullUserType = data.user;
-  const fallback = user.name.slice(0, 2).toUpperCase();
+const CommentCard: React.FC<props> = ({ data, user }) => {
+  const fallback = user?.name.slice(0, 2).toUpperCase();
 
   return (
     <div className="flex gap-5 py-5">
       <div>
         <AvatarComponent
           fallback={fallback}
-          src={user.image == null ? "/user.jpeg" : user.image}
+          src={user?.image == null ? "/user.jpeg" : user?.image}
         />
       </div>
       <div>
         <div className="flex gap-3 items-center">
-          <div>{user.name}</div>
-          <div className="rounded-full bg-slate-700 w-1 h-1" />
+          <div>{user?.name}</div>
+          <div className="rounded-full bg-muted-foreground w-1 h-1" />
           <div>{data.createdAt.toDateString().slice(3)}</div>
           {!data.isModerated && (
             <>
-              <div className="rounded-full bg-slate-700 w-1 h-1" />
+              <div className="rounded-full bg-muted-foreground w-1 h-1" />
               <div className="text-rose-500">Await moderation</div>
             </>
           )}

@@ -3,6 +3,7 @@
 import React from "react";
 import clsx from "clsx";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
+import { InputClass } from "../ui/input";
 
 interface InputProps {
   label: string;
@@ -38,17 +39,7 @@ const Input: React.FC<InputProps> = ({
           disabled={disabled}
           {...register(id, { required })}
           className={clsx(
-            `
-                    form-input
-                    w-full
-                    rounded-md
-                    border-0
-                    ring-gray-300
-                    ring-1
-                    px-3
-                    py-1
-                    focus:outline-none 
-                    focus:ring-gray-500`,
+            `${InputClass}`,
             errors[id] && "focus:ring-rose-500",
             disabled && "opacity-50 cursor-default"
           )}

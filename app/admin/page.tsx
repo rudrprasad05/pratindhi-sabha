@@ -1,25 +1,31 @@
 "use client";
 
-import { getCategories } from "@/actions/getCategories";
-import { getPosts } from "@/actions/getPosts";
-import { getUser } from "@/actions/getUser";
-import AdminCommand from "@/components/global/AdminCommand";
-import Link from "next/link";
 import { FaPenFancy } from "react-icons/fa6";
 import { MdOutlineAdminPanelSettings, MdOutlineLabel } from "react-icons/md";
-
 import AdminCards from "./components/AdminCards";
-import { useSession } from "next-auth/react";
+import { GetForms } from "@/actions/form";
+import CreateFormBtn from "@/components/CreateFormBtn";
+import { FormCard, FormCardSkeleton } from "@/components/FormCard";
+import { Suspense, useEffect, useState } from "react";
+import { Post } from "@prisma/client";
+import CreateAdminButton from "@/components/CreateAdminButton";
+import EditProfileButton from "@/components/EditProfileButton";
 
 export default function Page() {
-  const { data: user } = useSession();
-
   return (
     <>
-      {
-        <main className="grow">
-          <div className="grid grid-cols-3 gap-10 ">
-            <AdminCards href={"/admin/post"} name="Posts" Icon={FaPenFancy} />
+      {/* <Suspense
+        fallback={[1, 2, 3, 4].map((el) => (
+          <FormCardSkeleton key={el} />
+        ))}
+      > */}
+      <main className="grow">
+        <div className="pb-20">
+          <h1 className="text-4xl text-primary font-bold pb-10">
+            Admin Dashboard
+          </h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
+            <AdminCards href={"/admin/posts"} name="Posts" Icon={FaPenFancy} />
             <AdminCards
               href={"/admin/users"}
               name="Admin"
@@ -31,15 +37,16 @@ export default function Page() {
               Icon={MdOutlineLabel}
             />
           </div>
-        </main>
-      }
-      {/* // ) : (
-      //   <div className="grid place-content-center w-screen h-80v">
-      //     <div className="text-5xl text-orange-500">
-      //       Error 403: Unauthorized Access
-      //     </div>
-      //   </div>
-      // )} */}
+        </div>
+
+        <h1 className="text-4xl text-primary font-bold pb-10">Quick Access</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <CreateFormBtn />
+          <CreateAdminButton />
+          <EditProfileButton />
+        </div>
+      </main>
+      {/* </Suspense> */}
     </>
   );
 }

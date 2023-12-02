@@ -1,13 +1,16 @@
 "use client";
 
 import { FullPostType, FullUserType } from "@/types";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import CommentCard from "./CommentCard";
 import PostComments from "./PostComments";
 import AuthorCard from "@/components/global/AuthorCard";
 import { GiSpiderWeb } from "react-icons/gi";
 import { useSession } from "next-auth/react";
 import { tree } from "next/dist/build/templates/app-page";
+import { FormCardSkeleton } from "@/components/FormCard";
+import PostSection from "@/components/PostSection";
+import { FormElementInstance } from "@/components/FormElements";
 
 interface props {
   data: FullPostType;
@@ -31,54 +34,65 @@ const PostPage: React.FC<props> = ({ data }) => {
   const session = useSession();
   const user = session.data?.user;
 
-  // checkDisable(data, user, setDisableCommentSubmit);
+  const postContent = JSON.parse(data.content) as FormElementInstance[];
 
   useEffect(() => {
     data.comments?.map((commentData) => {
       if (user?.id == commentData.userId && !commentData.isModerated)
         setDisableCommentSubmit(true);
     });
+
     setDomLoaded(true);
   }, []);
 
   return (
-    <main className="">
-      <section>
-        <h1 className="text-5xl pb-10">{data.title}</h1>
-        <img className="rounded-sm shadow-sm" src="/pic.jpg" alt="" />
-        {user && <AuthorCard user={data.author} />}
+    <>
+      {domLoaded && (
+        <main className="">
+          <PostSection content={postContent} />
 
-        <p className="text-justify">{data.content}</p>
-      </section>
-
-      {/* <CommentSleeve>
+          {/* <CommentSleeve>
         <div className={buttonVariants()}>Comments</div>
       </CommentSleeve> */}
 
-      <section>
-        {domLoaded && (
-          <PostComments
-            disableButtonProps={disableCommentSubmit}
-            data={data}
-            user={user}
-          />
-        )}
+          <section>
+            {domLoaded && (
+              <PostComments
+                disableButtonProps={disableCommentSubmit}
+                data={data}
+                user={user}
+              />
+            )}
 
-        {data.comments?.map((commentData) => {
-          if (user?.id == commentData.userId && !commentData.isModerated)
-            return <CommentCard key={commentData.id} data={commentData} />;
-          else if (commentData.isModerated)
-            return <CommentCard key={commentData.id} data={commentData} />;
-        })}
-      </section>
+            {data.comments?.map((commentData) => {
+              if (user?.id == commentData.userId && !commentData.isModerated)
+                return (
+                  <CommentCard
+                    key={commentData.id}
+                    data={commentData}
+                    user={user}
+                  />
+                );
+              else if (commentData.isModerated)
+                return (
+                  <CommentCard
+                    key={commentData.id}
+                    data={commentData}
+                    user={user}
+                  />
+                );
+            })}
+          </section>
 
-      {data.comments.length < 1 && (
-        <div className="text-slate-700 flex items-center gap-5">
-          <GiSpiderWeb className={"w-16 h-16"} />
-          No comments yet. Start a new Converstaion
-        </div>
+          {data.comments.length < 1 && (
+            <div className="text-slate-700 flex items-center gap-5">
+              <GiSpiderWeb className={"w-16 h-16"} />
+              No comments yet. Start a new Converstaion
+            </div>
+          )}
+        </main>
       )}
-    </main>
+    </>
   );
 };
 

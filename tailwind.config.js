@@ -17,11 +17,6 @@ module.exports = {
     },
     extend: {
       colors: {
-        // global
-        "secondary-bg": "var(--secondary-bg)",
-        "primary-bg": "var(--primary-bg)",
-        "text-main": "var(--text-color)",
-
         // shad
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

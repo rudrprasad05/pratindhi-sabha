@@ -1,6 +1,6 @@
-import { useSession } from "next-auth/react";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import react from "react";
+import { useRouter } from "next/navigation";
 import { IconType } from "react-icons";
 
 interface props {
@@ -11,12 +11,16 @@ interface props {
 
 const AdminCards: React.FC<props> = ({ name, Icon, href }) => {
   return (
-    <div className="rounded-md shadow-sm  h-48 relative bg-orange-100 p-5">
-      <div className="font-extrabold text-3xl">{name}</div>
-      <div className="absolute bottom-5 right-5">
-        <Icon className="w-24 h-24 stroke opacity-50" />
-      </div>
-      <Link href={href}>View</Link>
+    <div className="duration-100 group group-hover:border-primary border rounded-md shadow-sm h-48 relative bg-muted p-5 border-primary/20 hover:border-primary hover:cursor-pointer">
+      <Link href={href} className="w-full h-full">
+        <div className="font-light text-3xl text-primary">{name}</div>
+        <div className="absolute bottom-5 right-5">
+          <Icon className="group-hover:fill-primary w-24 h-24 stroke fill-muted-foreground" />
+        </div>
+        <Link className=" text-muted-foreground" href={href}>
+          View
+        </Link>
+      </Link>
     </div>
   );
 };
