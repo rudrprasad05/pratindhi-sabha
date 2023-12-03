@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Input, InputClass } from "@/components/ui/input";
-import { toast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { FullPostType, FullUserType } from "@/types";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import react, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 interface props {
   data: FullPostType;
@@ -33,10 +33,7 @@ const PostComments: React.FC<props> = ({ data, user, disableButtonProps }) => {
     event.preventDefault();
 
     if (disableButton) {
-      toast({
-        title: "Success",
-        description: "Your form has been saved",
-      });
+      toast.success("Post Submited");
       return;
     }
 
@@ -50,10 +47,7 @@ const PostComments: React.FC<props> = ({ data, user, disableButtonProps }) => {
       .post("/api/comment", commentData)
       .then((res) => {
         if (res.status == 200) {
-          toast({
-            title: "Success",
-            description: "Your form has been saved",
-          });
+          toast.success("Comment Sent");
         }
         setDisableButton(true);
         setCommentValue("");
@@ -61,10 +55,7 @@ const PostComments: React.FC<props> = ({ data, user, disableButtonProps }) => {
         router.refresh();
       })
       .catch((error) => {
-        toast({
-          title: "Success",
-          description: "Your form has been saved",
-        });
+        toast.error("An Error Occured");
       });
   };
 

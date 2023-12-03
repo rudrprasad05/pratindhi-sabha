@@ -110,17 +110,19 @@ const EditProfileForm = ({}) => {
             />
           </>
         )}
-
-        {!isPasswordMatch && (
-          <div className="text-sm italic text-red-500 pb-5">
-            Passwords do not match
-          </div>
-        )}
-        <div className="">
-          <DialogPrimitive.Close>
-            <Button type="submit">Submit</Button>
-          </DialogPrimitive.Close>
+        <div>
+          {!isPasswordMatch && (
+            <div className="text-sm italic text-red-500 pb-5">
+              Passwords do not match
+            </div>
+          )}
         </div>
+
+        <DialogPrimitive.Close className="">
+          <div className="">
+            <Button type="submit">Submit</Button>
+          </div>
+        </DialogPrimitive.Close>
       </form>
     </div>
   );

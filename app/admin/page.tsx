@@ -1,20 +1,18 @@
-"use client";
-
-import { FaPenFancy } from "react-icons/fa6";
+import { FaPenFancy, FaRegComment } from "react-icons/fa6";
 import { MdOutlineAdminPanelSettings, MdOutlineLabel } from "react-icons/md";
 import AdminCards from "../../components/AdminCards";
-import CreateFormBtn from "@/components/CreateFormBtn";
+import { CreateFormBtn } from "@/components/CreateFormBtn";
 import { FormCard, FormCardSkeleton } from "@/components/FormCard";
 import { Suspense, useEffect, useState } from "react";
 import CreateAdminButton from "@/components/CreateAdminButton";
 import EditProfileButton from "@/components/EditProfileButton";
 import { useSession } from "next-auth/react";
 import CreateCategoryButton from "@/components/CreateCategoryButton";
+import { getCategories } from "@/actions/getCategories";
 
-export default function Page() {
-  const data = useSession();
-
-  console.log("SESSION DATA", data);
+export default async function Page() {
+  const categories = await getCategories();
+  console.log(categories);
 
   return (
     <>
@@ -35,14 +33,19 @@ export default function Page() {
                 Icon={FaPenFancy}
               />
               <AdminCards
+                href={"/admin/categories"}
+                name="Categories"
+                Icon={MdOutlineLabel}
+              />
+              <AdminCards
                 href={"/admin/users"}
                 name="Admin"
                 Icon={MdOutlineAdminPanelSettings}
               />
               <AdminCards
-                href={"/admin/categories"}
-                name="Categories"
-                Icon={MdOutlineLabel}
+                href={"/admin/comments"}
+                name="Comments"
+                Icon={FaRegComment}
               />
             </div>
           </div>
@@ -51,9 +54,10 @@ export default function Page() {
             Quick Access
           </h1>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <CreateFormBtn />
+            {categories && <CreateFormBtn categories={categories} />}
+
             <CreateAdminButton />
-            <EditProfileButton user={data} />
+            <EditProfileButton />
             <CreateCategoryButton />
           </div>
         </main>

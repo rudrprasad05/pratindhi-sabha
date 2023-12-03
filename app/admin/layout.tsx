@@ -14,9 +14,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="relative flex h-full gap-10 w-4/5 mx-auto">
+    <main className="relative flex h-full gap-10 w-4/5 mx-auto pt-32">
       <div className="grow">{children}</div>
-      <div className="relative lg:block hidden ">
+      <div className="relative lg:block hidden h-full">
         <h1 className="text-2xl text-primary font-bold pb-10">Control Panel</h1>
         <AdminCommand />
       </div>

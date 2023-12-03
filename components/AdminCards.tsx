@@ -18,7 +18,7 @@ const AdminCards: React.FC<props> = ({ name, Icon, href }) => {
           {/* <Icon className="group-hover:fill-primary w-16 h-16 stroke fill-muted-foreground" /> */}
           <Icon className="group-hover:h-28 group-hover:w-28 group-hover:fill-muted-foreground/20 duration-200  w-16 h-16 stroke fill-muted-foreground" />
         </div>
-        <div>View</div>
+        <div className="text-muted-foreground">View</div>
       </Link>
     </div>
   );

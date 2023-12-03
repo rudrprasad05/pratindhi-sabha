@@ -13,6 +13,7 @@ async function BuilderPage({
   if (!form) {
     throw new Error("form not found");
   }
+  console.log(form);
   return <FormBuilder form={form} />;
 }
 

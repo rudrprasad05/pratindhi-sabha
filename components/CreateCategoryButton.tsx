@@ -34,9 +34,9 @@ function CreateCategoryButton() {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Create form</DialogTitle>
+          <DialogTitle>Create Category</DialogTitle>
           <DialogDescription>
-            Create a new form to start collecting responses
+            Create a new category to organise your posts
           </DialogDescription>
         </DialogHeader>
         <NewCategoryForm />

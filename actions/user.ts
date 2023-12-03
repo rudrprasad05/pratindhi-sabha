@@ -59,6 +59,21 @@ export async function GetCurrentUser(id: string) {
   }
 }
 
+export async function DeleteUser(id: string) {
+  try {
+    const users = await prisma.user.delete({
+      where: {
+        id: id,
+      },
+    });
+
+    return users;
+  } catch (error: any) {
+    console.log(error, "REGISTRATION ERROR");
+    return new NextResponse("internal error", { status: 500 });
+  }
+}
+
 // export async function UpdateUserProfile(request: Request, { params }: any) {
 //   try {
 //     const { id } = params;

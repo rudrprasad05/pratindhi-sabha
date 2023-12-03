@@ -12,17 +12,8 @@ export default async function Page() {
     <main className="">
       {/* category section */}
 
-      <div className="flex justify-between">
-        <h1 className="text-3xl font-bold">All Categories</h1>
-      </div>
+      <h1 className="text-3xl text-primary font-bold pb-10">Categories</h1>
 
-      {categoryData && (
-        <DataTable
-          type="category"
-          columns={categoryColumns}
-          data={categoryData}
-        />
-      )}
       {categoryData && (
         <DataTable
           type="category"

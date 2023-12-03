@@ -1,5 +1,4 @@
 "use client";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreatePostSchema, CreatePostSchemaType } from "@/schemas/form";
 import { useForm } from "react-hook-form";
@@ -24,11 +23,9 @@ import {
 } from "./ui/form";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
-import { toast } from "./ui/use-toast";
 import { CreateForm } from "@/actions/form";
 import { BsFileEarmarkPlus } from "react-icons/bs";
 import { useRouter } from "next/navigation";
-import SelectComponent from "./global/Select";
 import {
   Select,
   SelectContent,
@@ -36,22 +33,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import { getCategories } from "@/actions/getCategories";
-import ProductForm from "./ProductForm";
-import { useEffect, useState } from "react";
+
+import toast from "react-hot-toast";
 import { FullCategoryType } from "@/types";
 
-function CreateFormBtn() {
-  const router = useRouter();
-  const [categoriesArr, setCategoriesArr] = useState<FullCategoryType[]>([]);
-  useEffect(() => {
-    const getCatFunc = async () => {
-      const cat = await getCategories();
-      console.log(cat);
-    };
-    getCatFunc();
-  }, []);
+interface props {
+  categories: FullCategoryType[];
+}
 
+export const CreateFormBtn: React.FC<props> = ({ categories }) => {
+  const router = useRouter();
   const form = useForm<CreatePostSchemaType>({
     resolver: zodResolver(CreatePostSchema),
     defaultValues: {
@@ -60,22 +51,16 @@ function CreateFormBtn() {
     },
   });
 
-  // const categoryType = form.watch("category");
+  const categoryType = form.watch("category");
 
   async function onSubmit(values: CreatePostSchemaType) {
     try {
       const formId = await CreateForm(values);
-      toast({
-        title: "Success",
-        description: "Form created successfully",
-      });
+      toast.success("Post Created");
+
       router.push(`/admin/build/${formId}`);
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "Something went wrong, please try again later",
-        variant: "destructive",
-      });
+      toast.error("An Error Occured");
     }
   }
 
@@ -114,29 +99,32 @@ function CreateFormBtn() {
               )}
             />
 
-            {/* <FormField
+            <FormField
               control={form.control}
               name="category"
               render={({ field }) => {
                 return (
                   <FormItem>
-                    <FormLabel>Account type</FormLabel>
+                    <FormLabel>Tags</FormLabel>
                     <Select onValueChange={field.onChange}>
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select an account type" />
+                          <SelectValue placeholder="Select a tag" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="personal">1</SelectItem>
-                        <SelectItem value="company">Company</SelectItem>
+                        {categories?.map((i) => (
+                          <SelectItem key={i.id} value={i?.name || ""}>
+                            {i.name}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                     <FormMessage />
                   </FormItem>
                 );
               }}
-            /> */}
+            />
 
             <FormField
               control={form.control}
@@ -169,6 +157,4 @@ function CreateFormBtn() {
       </DialogContent>
     </Dialog>
   );
-}
-
-export default CreateFormBtn;
+};

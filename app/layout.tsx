@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import AuthContext from "@/context/AuthContext";
-import { Toaster } from "react-hot-toast";
 import { getUser } from "@/actions/getUser";
 import { NavBar } from "@/components/navbar/navBar";
 import Footer from "@/components/global/Footer";
@@ -10,6 +9,7 @@ import DropDownNav from "@/components/global/DropDownNav";
 import { ThemeProvider } from "./providers/ThemeProvider";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import DesignerContextProvider from "@/context/DesignerContext";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -39,7 +39,7 @@ export default async function RootLayout({
               <NavBar user={user} />
               {/* <ThemeSwitcher /> */}
               {/* <DropDownNav user={user} /> */}
-              {children}
+              <div className="h-full">{children}</div>
               <Footer />
             </ThemeProvider>
           </DesignerContextProvider>

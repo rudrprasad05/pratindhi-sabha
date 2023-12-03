@@ -38,13 +38,14 @@ export async function CreateForm(data: CreatePostSchemaType) {
     throw new UserNotFoundErr();
   }
 
-  const { name, description } = data;
+  const { name, description, category } = data;
 
   const form = await prisma.post.create({
     data: {
       authorId: user.id,
       name,
       description,
+      tags: category,
     },
   });
 
@@ -145,6 +146,14 @@ export async function GetFormContentByUrl(formUrl: string) {
     },
     where: {
       shareURL: formUrl,
+    },
+  });
+}
+
+export async function DeleteForm(id: string) {
+  return await prisma.post.delete({
+    where: {
+      id: id,
     },
   });
 }

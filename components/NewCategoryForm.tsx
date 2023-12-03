@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import Input from "@/components/global/Input";
 import SpiniJoji from "@/components/global/Spinner";
 import { User } from "@prisma/client";
@@ -32,6 +32,7 @@ const NewCategoryForm = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     data.authorID = user?.id;
+    data.authorName = user?.name;
 
     axios
       .post(`/api/category`, data)
@@ -62,9 +63,9 @@ const NewCategoryForm = () => {
         />
 
         <DialogPrimitive.Close className="">
-          <Button type="submit" className={"w-full mt-4"}>
-            Save
-          </Button>
+          <div>
+            <Button className={`w-full mt-4`}>Save</Button>
+          </div>
         </DialogPrimitive.Close>
       </form>
     </div>

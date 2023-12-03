@@ -21,7 +21,7 @@ export const NavBar: React.FC<props> = ({ user }) => {
   }, [domLoaded]);
   return (
     <>
-      <nav className="">
+      <nav className="absolute top-0 left-0 z-50 bg-background/50 w-screen">
         <main className="flex items-center justify-between  mx-auto py-10 w-4/5">
           <div className="opacity-80">
             <Image src={"/logo.png"} alt="Om Logo" height={40} width={40} />

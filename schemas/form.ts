@@ -3,7 +3,7 @@ import { z } from "zod";
 export const CreatePostSchema = z.object({
   name: z.string().min(4),
   description: z.string().optional(),
-  // category: z.string(),
+  category: z.string(),
 });
 
 export const CreateAdminFormSchema = z

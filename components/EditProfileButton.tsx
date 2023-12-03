@@ -31,13 +31,9 @@ import { BsFileEarmarkPlus } from "react-icons/bs";
 import { useRouter } from "next/navigation";
 import AdminCards from "@/components/AdminCards";
 import EditProfileForm from "@/components/EditProfileForm";
+import { useSession } from "next-auth/react";
 
-function EditProfileButton(user: any) {
-  const router = useRouter();
-  const form = useForm<CreatePostSchemaType>({
-    resolver: zodResolver(CreatePostSchema),
-  });
-
+function EditProfileButton() {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -53,7 +49,7 @@ function EditProfileButton(user: any) {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Create form</DialogTitle>
+          <DialogTitle>Edit Profile</DialogTitle>
           <DialogDescription>
             Create a new form to start collecting responses
           </DialogDescription>

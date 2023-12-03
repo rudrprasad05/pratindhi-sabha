@@ -1,6 +1,8 @@
 import { GetFormById, GetForms } from "@/actions/form";
+import DraftPosts from "@/components/DraftPosts";
 import FormBuilder from "@/components/FormBuilder";
 import { FormCard, FormCardSkeleton } from "@/components/FormCard";
+import PublishedPosts from "@/components/PublishedPosts";
 import { Suspense } from "react";
 
 async function BuilderPage() {
@@ -17,24 +19,30 @@ async function BuilderPage() {
           <FormCardSkeleton key={el} />
         ))}
       >
-        <div className="pb-20">
-          <h1 className="text-4xl text-primary font-bold pb-10">Published</h1>
+        {/* <div className="pb-20">
+          <BoldHeader name="Published" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
             {forms.map((form) => {
               if (form.published) return <FormCard key={form.id} form={form} />;
             })}
           </div>
-        </div>
+        </div> */}
 
-        <div>
-          <h1 className="text-4xl text-primary font-bold pb-10">Drafts</h1>
+        <PublishedPosts data={forms} />
+        <DraftPosts data={forms} />
+
+        {/* <div>
+          <h1 className="grow pb-10 text-4xl text-primary font-semibold ">
+            Drafts
+          </h1>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {forms.map((form) => {
               if (!form.published)
                 return <FormCard key={form.id} form={form} />;
             })}
           </div>
-        </div>
+        </div> */}
       </Suspense>
     </>
   );
