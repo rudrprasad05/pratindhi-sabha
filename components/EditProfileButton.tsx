@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { formSchema, formSchemaType } from "@/schemas/form";
+import { CreatePostSchema, CreatePostSchemaType } from "@/schemas/form";
 import { useForm } from "react-hook-form";
 import { ImSpinner2 } from "react-icons/im";
 import { Button } from "./ui/button";
@@ -34,8 +34,8 @@ import EditProfileForm from "@/components/EditProfileForm";
 
 function EditProfileButton(user: any) {
   const router = useRouter();
-  const form = useForm<formSchemaType>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<CreatePostSchemaType>({
+    resolver: zodResolver(CreatePostSchema),
   });
 
   return (

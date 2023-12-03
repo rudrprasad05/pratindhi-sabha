@@ -1,6 +1,6 @@
 "use server";
 
-import { formSchema, formSchemaType } from "@/schemas/form";
+import { CreatePostSchema, CreatePostSchemaType } from "@/schemas/form";
 import { getUser } from "./getUser";
 import prisma from "@/lib/prismadb";
 
@@ -27,8 +27,8 @@ export async function GetFormStats() {
   };
 }
 
-export async function CreateForm(data: formSchemaType) {
-  const validation = formSchema.safeParse(data);
+export async function CreateForm(data: CreatePostSchemaType) {
+  const validation = CreatePostSchema.safeParse(data);
   if (!validation.success) {
     throw new Error("form not valid");
   }
@@ -38,14 +38,13 @@ export async function CreateForm(data: formSchemaType) {
     throw new UserNotFoundErr();
   }
 
-  const { name, description, category } = data;
+  const { name, description } = data;
 
   const form = await prisma.post.create({
     data: {
       authorId: user.id,
       name,
       description,
-      tags: category,
     },
   });
 

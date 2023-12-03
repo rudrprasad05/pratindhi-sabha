@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { formSchema, formSchemaType } from "@/schemas/form";
+import { CreatePostSchema, CreatePostSchemaType } from "@/schemas/form";
 import { useForm } from "react-hook-form";
 import { ImSpinner2 } from "react-icons/im";
 import { Button } from "./ui/button";
@@ -29,17 +29,40 @@ import { CreateForm } from "@/actions/form";
 import { BsFileEarmarkPlus } from "react-icons/bs";
 import { useRouter } from "next/navigation";
 import SelectComponent from "./global/Select";
-import { SelectItem } from "./ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
 import { getCategories } from "@/actions/getCategories";
 import ProductForm from "./ProductForm";
+import { useEffect, useState } from "react";
+import { FullCategoryType } from "@/types";
 
 function CreateFormBtn() {
   const router = useRouter();
-  const form = useForm<formSchemaType>({
-    resolver: zodResolver(formSchema),
+  const [categoriesArr, setCategoriesArr] = useState<FullCategoryType[]>([]);
+  useEffect(() => {
+    const getCatFunc = async () => {
+      const cat = await getCategories();
+      console.log(cat);
+    };
+    getCatFunc();
+  }, []);
+
+  const form = useForm<CreatePostSchemaType>({
+    resolver: zodResolver(CreatePostSchema),
+    defaultValues: {
+      name: "",
+      description: "",
+    },
   });
 
-  async function onSubmit(values: formSchemaType) {
+  // const categoryType = form.watch("category");
+
+  async function onSubmit(values: CreatePostSchemaType) {
     try {
       const formId = await CreateForm(values);
       toast({
@@ -91,19 +114,29 @@ function CreateFormBtn() {
               )}
             />
 
-            <FormField
+            {/* <FormField
               control={form.control}
               name="category"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Category</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel>Account type</FormLabel>
+                    <Select onValueChange={field.onChange}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select an account type" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="personal">1</SelectItem>
+                        <SelectItem value="company">Company</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            /> */}
 
             <FormField
               control={form.control}
@@ -125,7 +158,7 @@ function CreateFormBtn() {
           <Button
             onClick={form.handleSubmit(onSubmit)}
             disabled={form.formState.isSubmitting}
-            className="w-full mt-4"
+            className="mr-auto mt-4"
           >
             {!form.formState.isSubmitting && <span>Save</span>}
             {form.formState.isSubmitting && (

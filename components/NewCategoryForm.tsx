@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
-import Button from "@/components/global/Button";
+import { Button } from "@/components/ui/button";
 import Input from "@/components/global/Input";
 import SpiniJoji from "@/components/global/Spinner";
 import { User } from "@prisma/client";
@@ -26,7 +26,6 @@ const NewCategoryForm = () => {
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      authorName: user?.name,
       name: "",
     },
   });
@@ -55,14 +54,6 @@ const NewCategoryForm = () => {
 
       <form action="" onSubmit={handleSubmit(onSubmit)} className="">
         <Input
-          label="Author Name"
-          register={register}
-          id="authorName"
-          required
-          errors={errors}
-        />
-
-        <Input
           label="Title"
           register={register}
           id="name"
@@ -71,7 +62,9 @@ const NewCategoryForm = () => {
         />
 
         <DialogPrimitive.Close className="">
-          <Button type="submit">Save</Button>
+          <Button type="submit" className={"w-full mt-4"}>
+            Save
+          </Button>
         </DialogPrimitive.Close>
       </form>
     </div>

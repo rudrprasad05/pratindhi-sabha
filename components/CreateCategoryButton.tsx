@@ -1,58 +1,24 @@
 "use client";
 
+import { CreateForm } from "@/actions/form";
+import NewCategoryForm from "@/components/NewCategoryForm";
+import { CreatePostSchema, CreatePostSchemaType } from "@/schemas/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { formSchema, formSchemaType } from "@/schemas/form";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { ImSpinner2 } from "react-icons/im";
-import { Button } from "./ui/button";
+import { MdNewLabel } from "react-icons/md";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "./ui/form";
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
 import { toast } from "./ui/use-toast";
-import { CreateForm } from "@/actions/form";
-import { BsFileEarmarkPlus } from "react-icons/bs";
-import { useRouter } from "next/navigation";
-import NewCategoryForm from "@/components/NewCategoryForm";
-import { MdNewLabel } from "react-icons/md";
 
 function CreateCategoryButton() {
   const router = useRouter();
-  const form = useForm<formSchemaType>({
-    resolver: zodResolver(formSchema),
-  });
-
-  async function onSubmit(values: formSchemaType) {
-    try {
-      const formId = await CreateForm(values);
-      toast({
-        title: "Success",
-        description: "Form created successfully",
-      });
-      router.push(`/admin/post/build/${formId}`);
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Something went wrong, please try again later",
-        variant: "destructive",
-      });
-    }
-  }
 
   return (
     <Dialog>

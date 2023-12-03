@@ -14,7 +14,7 @@ import CreateCategoryButton from "@/components/CreateCategoryButton";
 export default function Page() {
   const data = useSession();
 
-  console.log(data);
+  console.log("SESSION DATA", data);
 
   return (
     <>
