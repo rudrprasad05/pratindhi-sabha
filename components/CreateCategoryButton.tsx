@@ -5,7 +5,6 @@ import { formSchema, formSchemaType } from "@/schemas/form";
 import { useForm } from "react-hook-form";
 import { ImSpinner2 } from "react-icons/im";
 import { Button } from "./ui/button";
-import { IoSettingsOutline } from "react-icons/io5";
 import {
   Dialog,
   DialogContent,
@@ -29,26 +28,42 @@ import { toast } from "./ui/use-toast";
 import { CreateForm } from "@/actions/form";
 import { BsFileEarmarkPlus } from "react-icons/bs";
 import { useRouter } from "next/navigation";
-import AdminCards from "@/components/AdminCards";
-import EditProfileForm from "@/components/EditProfileForm";
+import NewCategoryForm from "@/components/NewCategoryForm";
+import { MdNewLabel } from "react-icons/md";
 
-function EditProfileButton(user: any) {
+function CreateCategoryButton() {
   const router = useRouter();
   const form = useForm<formSchemaType>({
     resolver: zodResolver(formSchema),
   });
 
+  async function onSubmit(values: formSchemaType) {
+    try {
+      const formId = await CreateForm(values);
+      toast({
+        title: "Success",
+        description: "Form created successfully",
+      });
+      router.push(`/admin/post/build/${formId}`);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong, please try again later",
+        variant: "destructive",
+      });
+    }
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
         <div className="duration-100 group group-hover:border-primary border rounded-md shadow-sm h-48 relative bg-muted p-5 border-primary/20 hover:border-primary hover:cursor-pointer">
-          <div className="font-light text-2xl text-primary">Profile</div>
+          <div className="font-light text-2xl text-primary">Category</div>
           <div className="absolute bottom-5 right-5">
-            <IoSettingsOutline className="group-hover:h-28 group-hover:w-28 group-hover:stroke-muted-foreground/20 duration-200  w-16 h-16 stroke stroke-muted-foreground" />
-
-            {/* <IoSettingsOutline className="group-hover:fill-primary group-hover:stroke-primary w-16 h-16 stroke stroke-muted-foreground" /> */}
+            <MdNewLabel className="group-hover:h-28 group-hover:w-28 group-hover:fill-muted-foreground/20 duration-200  w-16 h-16 stroke fill-muted-foreground" />
+            {/* <BsFileEarmarkPlus className="group-hover:fill-primary w-16 h-16 stroke fill-muted-foreground" /> */}
           </div>
-          <div className=" text-muted-foreground">Edit</div>
+          <div className=" text-muted-foreground">New</div>
         </div>
       </DialogTrigger>
       <DialogContent>
@@ -58,11 +73,10 @@ function EditProfileButton(user: any) {
             Create a new form to start collecting responses
           </DialogDescription>
         </DialogHeader>
-
-        <EditProfileForm />
+        <NewCategoryForm />
       </DialogContent>
     </Dialog>
   );
 }
 
-export default EditProfileButton;
+export default CreateCategoryButton;

@@ -11,14 +11,13 @@ import { User } from "@prisma/client";
 import axios from "axios";
 import toast from "react-hot-toast";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { useSession } from "next-auth/react";
 
-interface props {
-  user?: User;
-}
-
-const NewCategoryForm: React.FC<props> = ({ user }) => {
+const NewCategoryForm = () => {
+  const data = useSession();
+  const user = data.data?.user;
   const [loading, setLoading] = useState(false);
-  const [isPasswordMatch, setIsPasswordMatch] = useState<boolean>(true);
+
   const router = useRouter();
 
   const {
@@ -54,11 +53,7 @@ const NewCategoryForm: React.FC<props> = ({ user }) => {
     <div className="">
       {loading && <SpiniJoji />}
 
-      <form
-        action=""
-        onSubmit={handleSubmit(onSubmit)}
-        className="w-3/5 mx-auto mt-0"
-      >
+      <form action="" onSubmit={handleSubmit(onSubmit)} className="">
         <Input
           label="Author Name"
           register={register}

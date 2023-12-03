@@ -38,13 +38,14 @@ export async function CreateForm(data: formSchemaType) {
     throw new UserNotFoundErr();
   }
 
-  const { name, description } = data;
+  const { name, description, category } = data;
 
   const form = await prisma.post.create({
     data: {
       authorId: user.id,
       name,
       description,
+      tags: category,
     },
   });
 
@@ -76,6 +77,17 @@ export async function GetFormById(id: string) {
   // if (!user) {
   //   throw new UserNotFoundErr();
   // }
+
+  await prisma.post.update({
+    data: {
+      visits: {
+        increment: 1,
+      },
+    },
+    where: {
+      id: id,
+    },
+  });
 
   return await prisma.post.findUnique({
     where: {

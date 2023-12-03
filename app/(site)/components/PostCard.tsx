@@ -12,7 +12,7 @@ interface props {
 
 const PostCard: React.FC<props> = ({ post }) => {
   const session = useSession();
-  console.log(session);
+
   return (
     <article>
       <div>

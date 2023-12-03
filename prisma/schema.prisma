@@ -76,13 +76,14 @@ model Post {
 
     visits          Int        @default(0)
     likes           Int        @default(0)
+    tags              String?
 
     comments        Comment[]
     authorId        String     @db.ObjectId
     author          User       @relation(fields: [authorId], references: [id])
 
 
-  shareURL        String       @unique @default(uuid())
+    shareURL        String       @unique @default(uuid())
 
   @@unique([name, authorId])
 }

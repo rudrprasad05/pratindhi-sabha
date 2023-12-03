@@ -28,6 +28,10 @@ import { toast } from "./ui/use-toast";
 import { CreateForm } from "@/actions/form";
 import { BsFileEarmarkPlus } from "react-icons/bs";
 import { useRouter } from "next/navigation";
+import SelectComponent from "./global/Select";
+import { SelectItem } from "./ui/select";
+import { getCategories } from "@/actions/getCategories";
+import ProductForm from "./ProductForm";
 
 function CreateFormBtn() {
   const router = useRouter();
@@ -42,7 +46,7 @@ function CreateFormBtn() {
         title: "Success",
         description: "Form created successfully",
       });
-      router.push(`/admin/post/build/${formId}`);
+      router.push(`/admin/build/${formId}`);
     } catch (error) {
       toast({
         title: "Error",
@@ -56,10 +60,12 @@ function CreateFormBtn() {
     <Dialog>
       <DialogTrigger asChild>
         <div className="duration-100 group group-hover:border-primary border rounded-md shadow-sm h-48 relative bg-muted p-5 border-primary/20 hover:border-primary hover:cursor-pointer">
-          <div className="font-light text-2xl text-primary">New Post</div>
+          <div className="font-light text-2xl text-primary">Post</div>
           <div className="absolute bottom-5 right-5">
-            <BsFileEarmarkPlus className="group-hover:fill-primary w-24 h-24 stroke fill-muted-foreground" />
+            <BsFileEarmarkPlus className="group-hover:h-28 group-hover:w-28 group-hover:fill-muted-foreground/20 duration-200  w-16 h-16 stroke fill-muted-foreground" />
+            {/* <BsFileEarmarkPlus className="group-hover:fill-primary w-16 h-16 stroke fill-muted-foreground" /> */}
           </div>
+          <div className=" text-muted-foreground">New</div>
         </div>
       </DialogTrigger>
       <DialogContent>
@@ -84,6 +90,21 @@ function CreateFormBtn() {
                 </FormItem>
               )}
             />
+
+            <FormField
+              control={form.control}
+              name="category"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Category</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <FormField
               control={form.control}
               name="description"
@@ -99,6 +120,7 @@ function CreateFormBtn() {
             />
           </form>
         </Form>
+        {/* <ProductForm /> */}
         <DialogFooter>
           <Button
             onClick={form.handleSubmit(onSubmit)}

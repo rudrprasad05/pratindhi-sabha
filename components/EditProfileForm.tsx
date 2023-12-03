@@ -2,21 +2,23 @@
 
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
+
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
-import Button from "@/components/global/Button";
+import { Button } from "@/components/ui/button";
 import Input from "@/components/global/Input";
 import SpiniJoji from "@/components/global/Spinner";
 import { User } from "@prisma/client";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { Session } from "next-auth";
+import { useSession } from "next-auth/react";
 
-interface props {
-  user?: User;
-}
-
-const EditProfileForm: React.FC<props> = ({ user }) => {
-  const [loading, setLoading] = useState(false);
+const EditProfileForm = ({}) => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [isChangePassword, setIsChangePassword] = useState<boolean>(false);
+  const { data: user } = useSession();
   const [isPasswordMatch, setIsPasswordMatch] = useState<boolean>(true);
   const router = useRouter();
 
@@ -26,8 +28,8 @@ const EditProfileForm: React.FC<props> = ({ user }) => {
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      name: user?.name,
-      email: user?.email,
+      name: user?.user.name,
+      email: user?.user.email,
       password: "",
       reEnterPassword: "",
     },
@@ -39,7 +41,7 @@ const EditProfileForm: React.FC<props> = ({ user }) => {
       return;
     }
     axios
-      .patch(`/api/updateUser/${user?.id}`, data)
+      .patch(`/api/updateUser/${user?.user.id}`, data)
       .then((res) => {
         if (res.status == 200) toast.success("User Updated Successfully");
       })
@@ -57,11 +59,7 @@ const EditProfileForm: React.FC<props> = ({ user }) => {
     <div className="">
       {loading && <SpiniJoji />}
 
-      <form
-        action=""
-        onSubmit={handleSubmit(onSubmit)}
-        className="w-3/5 mx-auto mt-0"
-      >
+      <form action="" onSubmit={handleSubmit(onSubmit)} className="">
         <Input
           label="Name"
           register={register}
@@ -77,30 +75,51 @@ const EditProfileForm: React.FC<props> = ({ user }) => {
           required
           errors={errors}
         />
-        <Input
-          label="Password"
-          register={register}
-          type={"password"}
-          id="password"
-          required
-          errors={errors}
-        />
+        <Button
+          type="button"
+          variant={"link"}
+          className="p-0"
+          onClick={() =>
+            setIsChangePassword((prev) => {
+              if (prev) return false;
+              else return true;
+            })
+          }
+        >
+          {!isChangePassword && "Change Password?"}
+          {isChangePassword && "Dont Change Password?"}
+        </Button>
+        {isChangePassword && (
+          <>
+            <Input
+              label="Password"
+              register={register}
+              type={"password"}
+              id="password"
+              required
+              errors={errors}
+            />
 
-        <Input
-          label="Re-enter Password"
-          register={register}
-          type={"password"}
-          id="reEnterPassword"
-          required
-          errors={errors}
-        />
+            <Input
+              label="Re-enter Password"
+              register={register}
+              type={"password"}
+              id="reEnterPassword"
+              required
+              errors={errors}
+            />
+          </>
+        )}
+
         {!isPasswordMatch && (
           <div className="text-sm italic text-red-500 pb-5">
             Passwords do not match
           </div>
         )}
         <div className="">
-          <Button type="submit">Submit</Button>
+          <DialogPrimitive.Close>
+            <Button type="submit">Submit</Button>
+          </DialogPrimitive.Close>
         </div>
       </form>
     </div>

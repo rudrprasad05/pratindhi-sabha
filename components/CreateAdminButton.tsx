@@ -9,7 +9,7 @@ import Input from "@/components/global/Input";
 import SpiniJoji from "@/components/global/Spinner";
 import { User } from "@prisma/client";
 import axios from "axios";
-import { MdOutlineAdminPanelSettings } from "react-icons/md";
+import { IoPersonAddOutline } from "react-icons/io5";
 import toast from "react-hot-toast";
 import {
   Dialog,
@@ -68,10 +68,12 @@ const CreateAdminButton: React.FC<props> = ({ user }) => {
     <Dialog>
       <DialogTrigger asChild>
         <div className="duration-100 group group-hover:border-primary border rounded-md shadow-sm h-48 relative bg-muted p-5 border-primary/20 hover:border-primary hover:cursor-pointer">
-          <div className="font-light text-2xl text-primary">New Admin User</div>
+          <div className="font-light text-2xl text-primary">Admin</div>
           <div className="absolute bottom-5 right-5">
-            <MdOutlineAdminPanelSettings className="group-hover:fill-primary w-24 h-24 stroke fill-muted-foreground" />
+            <IoPersonAddOutline className="group-hover:h-28 group-hover:w-28 group-hover:stroke-muted-foreground/20 duration-200  w-16 h-16 stroke stroke-muted-foreground" />
+            {/* <IoPersonAddOutline className="group-hover:stroke-primary w-16 h-16 stroke stroke-muted-foreground" /> */}
           </div>
+          <div className=" text-muted-foreground">New</div>
         </div>
       </DialogTrigger>
       <DialogContent>

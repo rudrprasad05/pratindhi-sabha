@@ -39,7 +39,7 @@ export default async function RootLayout({
               <NavBar user={user} />
               {/* <ThemeSwitcher /> */}
               {/* <DropDownNav user={user} /> */}
-              <div>{children}</div>
+              {children}
               <Footer />
             </ThemeProvider>
           </DesignerContextProvider>

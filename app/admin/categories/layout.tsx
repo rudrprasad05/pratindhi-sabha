@@ -13,11 +13,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="relative flex my-10 w-4/5 mx-auto h-full gap-10">
+    <main className="relative h-full">
       <div className="grow">{children}</div>
-      <div className="relative lg:block hidden">
-        <AdminCommand />
-      </div>
     </main>
   );
 }

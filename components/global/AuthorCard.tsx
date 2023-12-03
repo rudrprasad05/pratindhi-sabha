@@ -15,7 +15,7 @@ const AuthorCard: React.FC<props> = ({ user }) => {
   // const fallback = user.name.slice(0, 2).toUpperCase();
   // return <AvatarComponent fallback={fallback} src={user.image} />;
   return (
-    <div className="flex gap-5 items-center py-5">
+    <div className="flex gap-5 items-center">
       <div>
         <AvatarComponent
           fallback={fallback}

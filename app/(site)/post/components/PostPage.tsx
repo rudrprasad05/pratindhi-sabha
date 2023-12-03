@@ -11,6 +11,7 @@ import { tree } from "next/dist/build/templates/app-page";
 import { FormCardSkeleton } from "@/components/FormCard";
 import PostSection from "@/components/PostSection";
 import { FormElementInstance } from "@/components/FormElements";
+import { formatDistance } from "date-fns";
 
 interface props {
   data: FullPostType;
@@ -50,10 +51,16 @@ const PostPage: React.FC<props> = ({ data }) => {
       {domLoaded && (
         <main className="">
           <PostSection content={postContent} />
-
-          {/* <CommentSleeve>
-        <div className={buttonVariants()}>Comments</div>
-      </CommentSleeve> */}
+          <h1 className="py-10 text-2xl">About the Author</h1>
+          <div className="flex justify-between items-center">
+            <AuthorCard user={data.author} />
+            <div className="text-sm italic">
+              Posted:{" "}
+              {formatDistance(data.createdAt, new Date(), {
+                addSuffix: true,
+              })}
+            </div>
+          </div>
 
           <section>
             {domLoaded && (
