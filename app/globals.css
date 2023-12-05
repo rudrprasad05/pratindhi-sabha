@@ -60,3 +60,24 @@ body,
     @apply border-border;
   }
 }
+
+.react-multi-carousel-dot-list {
+  bottom: -20px;
+}
+
+.react-multi-carousel-list {
+  overflow: unset;
+  overflow-x: clip;
+}
+
+.react-multiple-carousel__arrow {
+  background-color: #a9a9a9;
+}
+
+.react-multi-carousel-dot button {
+  border-color: #3b82f6;
+}
+
+.react-multi-carousel-dot--active button {
+  background: #3b82f6;
+}
