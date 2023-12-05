@@ -20,7 +20,8 @@ import { Post } from "@prisma/client";
 import { Skeleton } from "./ui/skeleton";
 import { DeleteForm, GetForms } from "@/actions/form";
 import { AiFillDelete } from "react-icons/ai";
-import { toast } from "./ui/use-toast";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export function FormCardSkeleton() {
   return (
@@ -28,17 +29,15 @@ export function FormCardSkeleton() {
   );
 }
 
-export const handleDelete = async (id: string) => {
-  await DeleteForm(id).then(() => {
-    toast({
-      title: "Success",
-      description: "Post Deleted",
+export async function FormCard({ form }: { form: Post }) {
+  const router = useRouter();
+  const handleDelete = async (id: string) => {
+    await DeleteForm(id).then(() => {
+      toast.success("Post Deleted");
+      router.refresh();
     });
-  });
-  console.log("del", id);
-};
-
-export function FormCard({ form }: { form: Post }) {
+    console.log("del", id);
+  };
   return (
     <Card className="bg-muted flex flex-col">
       <CardHeader>

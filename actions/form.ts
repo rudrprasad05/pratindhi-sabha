@@ -94,7 +94,12 @@ export async function GetFormById(id: string) {
       id,
     },
     include: {
-      comments: true,
+      comments: {
+        include: { user: true },
+        orderBy: {
+          createdAt: "desc",
+        },
+      },
       author: true,
     },
   });

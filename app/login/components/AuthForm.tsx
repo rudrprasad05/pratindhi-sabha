@@ -85,7 +85,6 @@ const AuthForm = () => {
           toast.error("Invalid Credentials");
         }
 
-        console.log("logged in");
         toast.success("Login Successful");
       })
       .finally(() => {

@@ -58,7 +58,7 @@ export const CreateFormBtn: React.FC<props> = ({ categories }) => {
       const formId = await CreateForm(values);
       toast.success("Post Created");
 
-      router.push(`/admin/build/${formId}`);
+      router.refresh();
     } catch (error) {
       toast.error("An Error Occured");
     }

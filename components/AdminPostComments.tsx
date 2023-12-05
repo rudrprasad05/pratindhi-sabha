@@ -4,8 +4,8 @@ import AvatarComponent from "@/components/global/AvatarComponent";
 import { Button } from "@/components/ui/button";
 import { FullCommentType, FullUserType } from "@/types";
 import axios from "axios";
-import { comment } from "postcss";
-import react, { useState } from "react";
+import Link from "next/link";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import {
   HiCheck,
@@ -69,6 +69,8 @@ const AdminPostComments: React.FC<props> = ({ data }) => {
               >
                 {data.isModerated ? "Moderated" : "Await Mod"}
               </div>
+              <div className="rounded-full bg-slate-700 w-1 h-1" />
+              <Link href={`/post/${data.postId}`}>View Post</Link>
             </div>
             <div className="py-2">{data.message}</div>
           </div>

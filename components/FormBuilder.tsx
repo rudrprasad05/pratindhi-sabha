@@ -22,11 +22,14 @@ import { toast } from "./ui/use-toast";
 import Link from "next/link";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import Confetti from "react-confetti";
+import { useRouter } from "next/navigation";
+import { HiMiniArrowLongLeft } from "react-icons/hi2";
 
 function FormBuilder({ form }: { form: Post }) {
   const { setElements, setSelectedElement } = useDesigner();
   const [isReady, setIsReady] = useState(false);
 
+  const router = useRouter();
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
       distance: 10, // 10px
@@ -118,10 +121,25 @@ function FormBuilder({ form }: { form: Post }) {
     <DndContext sensors={sensors}>
       <main className="flex flex-col w-full h-full">
         <nav className="flex justify-between border-b-2 p-4 gap-3 items-center">
-          <h2 className="truncate font-medium">
-            <span className="text-muted-foreground mr-2">Form:</span>
-            {form.name}
-          </h2>
+          <div className="flex gap-5 items-center">
+            <Button
+              variant={"link"}
+              className="p-0"
+              onClick={() => router.replace("/admin/posts")}
+            >
+              <HiMiniArrowLongLeft className={"w-6 h-6 stroke-primary mr-3"} />
+              Back Home
+            </Button>
+            <h2 className="truncate font-medium">
+              <span className="text-muted-foreground mr-2">Post:</span>
+              {form.name}
+            </h2>
+            <h2 className="truncate font-medium">
+              <span className="text-muted-foreground mr-2">Category:</span>
+              {form.tags}
+            </h2>
+          </div>
+
           <div className="flex items-center gap-2">
             <PreviewDialogBtn />
             {!form.published && (

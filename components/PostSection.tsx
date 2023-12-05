@@ -8,7 +8,7 @@ function FormSubmitComponent({ content }: { content: FormElementInstance[] }) {
   const formErrors = useRef<{ [key: string]: boolean }>({});
 
   return (
-    <div className="flex justify-center w-full h-full items-center">
+    <div className="flex justify-center w-full h-full items-center text-justify">
       <div className="flex flex-col gap-4 flex-grow bg-background overflow-y-auto ">
         {content.map((element) => {
           const FormElement = FormElements[element.type].formComponent;

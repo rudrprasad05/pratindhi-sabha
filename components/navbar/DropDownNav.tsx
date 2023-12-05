@@ -1,21 +1,12 @@
 "use client";
 
-import { getUser } from "@/actions/getUser";
-import { User } from "@prisma/client";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-
-import AuthButton from "./authButton";
-import { NavLinks } from "./navLinks";
-import Link from "next/link";
-import { buttonVariants } from "../ui/button";
 import { useSession } from "next-auth/react";
+import React from "react";
+import Image from "next/image";
+import { NavigationMenuDemo } from "../global/DropDownNav";
+import AuthButton from "./authButton";
 
-export const NavBar = () => {
-  const [domLoaded, setDomLoaded] = useState<boolean>(false);
-  useEffect(() => {
-    setDomLoaded(true);
-  }, [domLoaded]);
+const DropDownNav = () => {
   const { data: user } = useSession();
 
   return (
@@ -26,8 +17,7 @@ export const NavBar = () => {
             <Image src={"/logo.png"} alt="Om Logo" height={40} width={40} />
           </div>
           <div className="flex gap-10">
-            <NavLinks />
-            {user?.user.role == "admin" && <Link href={"/admin"}>Admin</Link>}
+            <NavigationMenuDemo />
           </div>
 
           <div>
@@ -38,3 +28,5 @@ export const NavBar = () => {
     </>
   );
 };
+
+export default DropDownNav;

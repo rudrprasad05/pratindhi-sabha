@@ -95,7 +95,7 @@ export const categoryColumns: ColumnDef<FullCategoryType>[] = [
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <Link className="w-full" href={`/admin/post/${user.id}`}>
+              <Link className="w-full" href={`/admin/categories/${user.id}`}>
                 Edit
               </Link>
             </DropdownMenuItem>

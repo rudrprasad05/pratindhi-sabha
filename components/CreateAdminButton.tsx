@@ -60,7 +60,7 @@ const CreateAdminButton: React.FC<props> = ({ user }) => {
       })
       .finally(() => {
         setLoading(false);
-        router.back();
+        router.refresh();
       });
   };
 

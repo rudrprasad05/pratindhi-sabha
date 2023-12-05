@@ -5,7 +5,6 @@ import AuthContext from "@/context/AuthContext";
 import { getUser } from "@/actions/getUser";
 import { NavBar } from "@/components/navbar/navBar";
 import Footer from "@/components/global/Footer";
-import DropDownNav from "@/components/global/DropDownNav";
 import { ThemeProvider } from "./providers/ThemeProvider";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import DesignerContextProvider from "@/context/DesignerContext";
@@ -36,11 +35,8 @@ export default async function RootLayout({
               disableTransitionOnChange
             >
               <Toaster />
-              <NavBar user={user} />
-              {/* <ThemeSwitcher /> */}
-              {/* <DropDownNav user={user} /> */}
+
               <div className="h-full">{children}</div>
-              <Footer />
             </ThemeProvider>
           </DesignerContextProvider>
         </AuthContext>

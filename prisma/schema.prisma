@@ -103,17 +103,6 @@ model Comment {
 }
 
 
-
-// model FormSubmissions {
-//   id            String    @id @default(auto()) @map("_id") @db.ObjectId
-//   createdAt DateTime @default(now())
-//   formId    String @db.ObjectId
-//   form      Form     @relation(fields: [formId], references: [id])
-
-//   content String
-// }
-
-
 model Category{
     id                String    @id @default(auto()) @map("_id") @db.ObjectId
     authorID          String    @db.ObjectId
@@ -122,4 +111,17 @@ model Category{
 
     createdAt         DateTime  @default(now())
     updatedAt         DateTime  @updatedAt
+}
+
+model Branch{
+    id                String    @id @default(auto()) @map("_id") @db.ObjectId
+    branchName        String?
+    headName          String?
+    phone             String?
+    email             String?
+
+    createdAt         DateTime  @default(now())
+    updatedAt         DateTime  @updatedAt
+
+
 }

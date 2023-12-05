@@ -55,7 +55,6 @@ const PostPage: React.FC<props> = ({ data }) => {
           <div className="flex justify-between items-center">
             <AuthorCard user={data.author} />
             <div className="text-sm italic">
-              Posted:{" "}
               {formatDistance(data.createdAt, new Date(), {
                 addSuffix: true,
               })}

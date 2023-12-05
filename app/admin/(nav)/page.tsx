@@ -1,6 +1,6 @@
 import { FaPenFancy, FaRegComment } from "react-icons/fa6";
 import { MdOutlineAdminPanelSettings, MdOutlineLabel } from "react-icons/md";
-import AdminCards from "../../components/AdminCards";
+import AdminCards from "../../../components/AdminCards";
 import { CreateFormBtn } from "@/components/CreateFormBtn";
 import { FormCard, FormCardSkeleton } from "@/components/FormCard";
 import { Suspense, useEffect, useState } from "react";

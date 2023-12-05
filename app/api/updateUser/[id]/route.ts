@@ -32,3 +32,18 @@ export async function PATCH(request: Request, { params }: any) {
     return [];
   }
 }
+
+export async function DELETE(request: Request, { params }: any) {
+  try {
+    const { id } = params;
+
+    const updatedUser = await prisma.user.delete({
+      where: {
+        id,
+      },
+    });
+    return NextResponse.json(updatedUser);
+  } catch (error: any) {
+    return [];
+  }
+}

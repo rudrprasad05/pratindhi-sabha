@@ -1,91 +1,174 @@
 "use client";
 
+import * as React from "react";
+import Link from "next/link";
+
+import { cn } from "@/lib/utils";
+
 import {
   NavigationMenu,
   NavigationMenuContent,
-  NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  NavigationMenuViewport,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { FullUserType } from "@/types";
-import Link from "next/link";
-import react from "react";
-import AuthButton from "../navbar/authButton";
+import { FaPenFancy, FaRegComment } from "react-icons/fa";
+import { MdOutlineAdminPanelSettings, MdOutlineLabel } from "react-icons/md";
 
-interface props {
-  user: FullUserType;
-}
-
-// TODO make this dynamic
-const Branches = [
-  { name: "Suva", href: "/branches/suva" },
-  { name: "Lautoka", href: "/branches/lautoka" },
-  { name: "Labasa", href: "/branches/labasa" },
+const Branches: { title: string; href: string; description: string }[] = [
+  { title: "Suva", href: "/branches/suva", description: "7 Smith Road" },
+  { title: "Lautoka", href: "/branches/lautoka", description: "7 Smith Road" },
+  { title: "Labasa", href: "/branches/labasa", description: "7 Smith Road" },
 ];
 
-const DropDownNav: React.FC<props> = ({ user }) => {
+export function NavigationMenuDemo() {
   return (
-    <>
-      TESTING
-      <NavigationMenu>
-        <NavigationMenuList>
-          <NavigationMenuItem>
-            <Link href="/" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+    <NavigationMenu className="">
+      <NavigationMenuList className="gap-10">
+        <NavigationMenuItem>
+          <Link href="/docs" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Home
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+
+        <NavigationMenuItem>
+          <Link href="/docs" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Posts
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+
+        {/* ADMIN PANEL */}
+        <NavigationMenuItem>
+          <NavigationMenuTrigger>Admin</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="flex flex-col gap-3 p-6 w-[500px]">
+              <Link
+                href={"/admin/posts"}
+                className={
+                  " flex items-center gap-5 select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                }
+              >
                 <div>
-                  <img src={"/logo.png"} alt="Om Logo" height={40} width={40} />
+                  <div className="text-base font-medium leading-none">Post</div>
+                  <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                    Create categories for for posts for a better user experience
+                  </p>
                 </div>
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
-
-          <NavigationMenuItem>
-            <NavigationMenuTrigger>Branches</NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="">
-                {Branches.map((branch) => (
-                  <li className="w-full" key={branch.href}>
-                    <Link
-                      href={branch.href}
-                      className="w-full"
-                      legacyBehavior
-                      passHref
-                    >
-                      <NavigationMenuLink
-                        className={`${navigationMenuTriggerStyle()} w-full`}
-                      >
-                        {branch.name}
-                      </NavigationMenuLink>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-          {user?.role == "admin" && (
-            <NavigationMenuItem>
-              <Link href="/docs" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Admin
-                </NavigationMenuLink>
+                <div className="ml-auto">
+                  <FaPenFancy className={"w-8 h-8"} />
+                </div>
               </Link>
-            </NavigationMenuItem>
-          )}
-          {/* <NavigationMenuItem>
-            <Link href="/" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                <div>{user && <AuthButton />}</div>
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem> */}
-        </NavigationMenuList>
-      </NavigationMenu>
-    </>
-  );
-};
 
-export default DropDownNav;
+              <Link
+                href={"/admin/posts"}
+                className={
+                  " flex items-center gap-5 select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                }
+              >
+                <div>
+                  <div className="text-base font-medium leading-none">
+                    Categories
+                  </div>
+                  <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                    Create categories for for posts for a better user experience
+                  </p>
+                </div>
+                <div className="ml-auto">
+                  <MdOutlineLabel className={"w-8 h-8"} />
+                </div>
+              </Link>
+
+              <Link
+                href={"/admin/posts"}
+                className={
+                  " flex items-center gap-5 select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                }
+              >
+                <div>
+                  <div className="text-base font-medium leading-none">
+                    Admin
+                  </div>
+                  <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                    Add or delete admins users
+                  </p>
+                </div>
+                <div className="ml-auto">
+                  <MdOutlineAdminPanelSettings className={"w-8 h-8"} />
+                </div>
+              </Link>
+
+              <Link
+                href={"/admin/posts"}
+                className={
+                  " flex items-center gap-5 select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                }
+              >
+                <div>
+                  <div className="text-base font-medium leading-none">
+                    Comments
+                  </div>
+                  <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                    View and moderate comments left by users
+                  </p>
+                </div>
+                <div className="ml-auto">
+                  <FaRegComment className={"w-8 h-8"} />
+                </div>
+              </Link>
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+
+        {/* BRANCHES */}
+        <NavigationMenuItem>
+          <NavigationMenuTrigger>Branches</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="grid gap-3 p-4 w-[500px] grid-cols-2">
+              {Branches.map((branch) => (
+                <ListItem
+                  key={branch.title}
+                  title={branch.title}
+                  href={branch.href}
+                >
+                  {branch.description}
+                </ListItem>
+              ))}
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+      </NavigationMenuList>
+    </NavigationMenu>
+  );
+}
+
+const ListItem = React.forwardRef<
+  React.ElementRef<"a">,
+  React.ComponentPropsWithoutRef<"a">
+>(({ className, title, children, ...props }, ref) => {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <a
+          ref={ref}
+          className={cn(
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            className
+          )}
+          {...props}
+        >
+          <div className="text-sm font-medium leading-none">{title}</div>
+          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+            {children}
+          </p>
+        </a>
+      </NavigationMenuLink>
+    </li>
+  );
+});
+ListItem.displayName = "ListItem";

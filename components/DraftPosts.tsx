@@ -38,7 +38,7 @@ const DraftPosts: React.FC<props> = ({ data }) => {
             }
           }
         })}
-        {data.length == 0 && <>No reulsts</>}
+        {data.length == 0 && <>No results</>}
       </div>
     </div>
   );

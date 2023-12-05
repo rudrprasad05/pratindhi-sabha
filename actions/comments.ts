@@ -9,7 +9,7 @@ export async function GetAllComments() {
     },
     include: {
       user: true,
-      //   post: true,
+      // post: true,
     },
   });
 }

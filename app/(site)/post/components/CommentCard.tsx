@@ -13,19 +13,19 @@ interface props {
 // TODO comment moderation
 
 const CommentCard: React.FC<props> = ({ data, user }) => {
-  const fallback = user?.name.slice(0, 2).toUpperCase();
+  const fallback = data.user.name.slice(0, 2).toUpperCase();
 
   return (
     <div className="flex gap-5 py-5">
       <div>
         <AvatarComponent
           fallback={fallback}
-          src={user?.image == null ? "/user.jpeg" : user?.image}
+          src={data.user.image == null ? "/user.jpeg" : data.user.image}
         />
       </div>
       <div>
         <div className="flex gap-3 items-center">
-          <div>{user?.name}</div>
+          <div>{data.user.name}</div>
           <div className="rounded-full bg-muted-foreground w-1 h-1" />
           <div>{data.createdAt.toDateString().slice(3)}</div>
           {!data.isModerated && (

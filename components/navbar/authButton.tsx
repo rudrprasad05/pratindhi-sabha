@@ -21,7 +21,7 @@ export default function AuthButton() {
           <div className="my-2 mx-10">Login</div>
         </Link>
       ) : (
-        <div className="mt-auto">
+        <div className="mt-auto flex items-end">
           <EditProfileSheet user={session?.user}>
             <AvatarComponent fallback={"AD"} src={session?.user?.image} />
           </EditProfileSheet>
