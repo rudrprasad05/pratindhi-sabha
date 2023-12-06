@@ -15,10 +15,10 @@ export default function AuthButton() {
     <>
       {!session?.user ? (
         <Link
-          className={clsx(buttonVariants({ variant: "primary" }), "w-5")}
+          className={clsx("rounded-full", buttonVariants({ variant: "primary"  }))}
           href={"/login"}
         >
-          <div className="my-2 mx-10">Login</div>
+          Login
         </Link>
       ) : (
         <div className="mt-auto flex items-end">
