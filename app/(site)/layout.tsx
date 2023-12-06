@@ -6,6 +6,7 @@ import SideNav from "@/components/global/SideNav";
 import LandingPageHero from "@/components/LandingPageHero";
 import { NavBar } from "@/components/navbar/navBar";
 import React from "react";
+import { Hero } from "./components/Hero";
 
 const layout = async ({ children }: { children: React.ReactNode }) => {
   const posts = await getPosts();
@@ -16,6 +17,7 @@ const layout = async ({ children }: { children: React.ReactNode }) => {
       {/* <NavigationMenuDemo /> */}
       <DropDownNav />
 
+            <Hero />
       <div className="flex relative w-4/5 mx-auto gap-24 pt-32">
         <div className="w-8/12 py-15">
           <div className="">{children}</div>
