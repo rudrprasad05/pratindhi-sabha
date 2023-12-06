@@ -19,8 +19,6 @@ const PostComments: React.FC<props> = ({ data, user, disableButtonProps }) => {
     useState<boolean>(disableButtonProps);
   const [notAuth, setNotAuth] = useState<boolean>(!user ? true : false);
 
-  console.log(disableButton);
-
   const router = useRouter();
 
   useEffect(() => {

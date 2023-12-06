@@ -36,7 +36,6 @@ export async function FormCard({ form }: { form: Post }) {
       toast.success("Post Deleted");
       router.refresh();
     });
-    console.log("del", id);
   };
   return (
     <Card className="bg-muted flex flex-col">

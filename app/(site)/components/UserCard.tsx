@@ -6,7 +6,6 @@ interface props {
 }
 
 const UserCard: React.FC<props> = ({ user }) => {
-  console.log(user);
   return <div>{user.email}</div>;
 };
 

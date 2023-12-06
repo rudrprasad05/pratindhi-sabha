@@ -44,7 +44,9 @@ const CaroCard = ({ data }: { data: FullCategoryType }) => {
 };
 
 const CategoryCaro: React.FC<props> = ({ categories }) => {
-  const product = categories.map((item) => <CaroCard data={item} />);
+  const product = categories.map((item) => (
+    <CaroCard key={item.id} data={item} />
+  ));
 
   return (
     <div className="py-10">

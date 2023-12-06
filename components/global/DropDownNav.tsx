@@ -15,7 +15,11 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { FaPenFancy, FaRegComment } from "react-icons/fa";
-import { MdOutlineAdminPanelSettings, MdOutlineLabel } from "react-icons/md";
+import {
+  MdDashboard,
+  MdOutlineAdminPanelSettings,
+  MdOutlineLabel,
+} from "react-icons/md";
 
 const Branches: { title: string; href: string; description: string }[] = [
   { title: "Suva", href: "/branches/suva", description: "7 Smith Road" },
@@ -48,6 +52,24 @@ export function NavigationMenuDemo() {
           <NavigationMenuTrigger>Admin</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="flex flex-col gap-3 p-6 w-[500px]">
+              <Link
+                href={"/admin"}
+                className={
+                  " flex items-center gap-5 select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                }
+              >
+                <div>
+                  <div className="text-base font-medium leading-none">
+                    Dashboard
+                  </div>
+                  <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                    All your controls at your fingertips
+                  </p>
+                </div>
+                <div className="ml-auto">
+                  <MdDashboard className={"w-8 h-8"} />
+                </div>
+              </Link>
               <Link
                 href={"/admin/posts"}
                 className={

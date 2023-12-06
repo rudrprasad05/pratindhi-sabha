@@ -9,7 +9,6 @@ export async function PATCH(request: Request, { params }: any) {
     const body = await request.json();
     const user = await getUser();
     const { email, name, password } = body;
-    console.log(body);
     var hashedPassword = null;
     if (password != "") {
       hashedPassword = await bcrypt.hash(password, 12);

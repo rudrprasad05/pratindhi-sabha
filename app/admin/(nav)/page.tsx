@@ -9,10 +9,10 @@ import EditProfileButton from "@/components/EditProfileButton";
 import { useSession } from "next-auth/react";
 import CreateCategoryButton from "@/components/CreateCategoryButton";
 import { getCategories } from "@/actions/getCategories";
+import CreateBranchButton from "@/components/CreateBranchButton";
 
 export default async function Page() {
   const categories = await getCategories();
-  console.log(categories);
 
   return (
     <>
@@ -59,6 +59,7 @@ export default async function Page() {
             <CreateAdminButton />
             <EditProfileButton />
             <CreateCategoryButton />
+            <CreateBranchButton />
           </div>
         </main>
       </Suspense>

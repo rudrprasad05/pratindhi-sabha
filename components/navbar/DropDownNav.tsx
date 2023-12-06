@@ -11,7 +11,7 @@ const DropDownNav = () => {
 
   return (
     <>
-      <nav className="absolute top-0 left-0 z-50 w-screen">
+      <nav className=" z-50 w-screen">
         <main className="flex items-center justify-between h-[15vh]  mx-auto w-4/5">
           <div className="opacity-70">
             <Image src={"/logo.png"} alt="Om Logo" height={40} width={40} />

@@ -10,8 +10,6 @@ async function page({ params }: { params: { id: string } }) {
   const { id } = params;
   const post = await GetFormById(id);
 
-  console.log(post);
-
   if (!post) {
     return <>No forms</>;
   }

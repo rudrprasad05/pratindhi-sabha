@@ -17,11 +17,16 @@ interface props {}
 const AdminCommand: React.FC<props> = ({}) => {
   return (
     <>
-      <Command className="h-min sticky top-10 ">
+      <Command className="h-full overflow-hidden">
         <CommandInput placeholder="Search..." />
-        <CommandList>
+        <CommandList className="h-full">
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup heading="Suggestions">
+            <CommandItem>
+              <Link className="w-full" href={"/admin"}>
+                Dashboard
+              </Link>
+            </CommandItem>
             <CommandItem>
               <Link className="w-full" href={"/admin/post"}>
                 Posts
@@ -35,6 +40,11 @@ const AdminCommand: React.FC<props> = ({}) => {
             <CommandItem>
               <Link className="w-full" href={"/admin/categories"}>
                 Categories
+              </Link>
+            </CommandItem>
+            <CommandItem>
+              <Link className="w-full" href={"/admin/comments"}>
+                Comments
               </Link>
             </CommandItem>
           </CommandGroup>
